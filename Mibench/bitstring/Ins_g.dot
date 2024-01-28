@@ -1,0 +1,282 @@
+subgraph cluster_bitstring{
+label = bitstring;
+subgraph cluster_BB0{
+label = BB0;
+dataflow
+"bitstring  %5 = alloca i8*, align 8" -> "bitstring  store i8* %0, i8** %5, align 8";
+"bitstring  %6 = alloca i64, align 8" -> "bitstring  store i64 %1, i64* %6, align 8";
+"bitstring  %7 = alloca i32, align 4" -> "bitstring  store i32 %2, i32* %7, align 4";
+"bitstring  %8 = alloca i32, align 4" -> "bitstring  store i32 %3, i32* %8, align 4";
+"bitstring  %8 = alloca i32, align 4" -> "bitstring  %11 = load i32, i32* %8, align 4";
+"bitstring  %7 = alloca i32, align 4" -> "bitstring  %12 = load i32, i32* %7, align 4";
+"bitstring  %7 = alloca i32, align 4" -> "bitstring  %13 = load i32, i32* %7, align 4";
+"bitstring  %13 = load i32, i32* %7, align 4" -> "bitstring  %14 = ashr i32 %13, 2";
+"bitstring  %12 = load i32, i32* %7, align 4" -> "bitstring  %15 = add nsw i32 %12, %14";
+"bitstring  %14 = ashr i32 %13, 2" -> "bitstring  %15 = add nsw i32 %12, %14";
+"bitstring  %7 = alloca i32, align 4" -> "bitstring  %16 = load i32, i32* %7, align 4";
+"bitstring  %16 = load i32, i32* %7, align 4" -> "bitstring  %17 = srem i32 %16, 4";
+"bitstring  %17 = srem i32 %16, 4" -> "bitstring  %18 = icmp ne i32 %17, 0";
+"bitstring  %18 = icmp ne i32 %17, 0" -> "bitstring  %19 = select i1 %18, i32 0, i32 1";
+"bitstring  %15 = add nsw i32 %12, %14" -> "bitstring  %20 = sub nsw i32 %15, %19";
+"bitstring  %19 = select i1 %18, i32 0, i32 1" -> "bitstring  %20 = sub nsw i32 %15, %19";
+"bitstring  %11 = load i32, i32* %8, align 4" -> "bitstring  %21 = sub nsw i32 %11, %20";
+"bitstring  %20 = sub nsw i32 %15, %19" -> "bitstring  %21 = sub nsw i32 %11, %20";
+"bitstring  %21 = sub nsw i32 %11, %20" -> "bitstring  store i32 %21, i32* %10, align 4";
+"bitstring  %10 = alloca i32, align 4" -> "bitstring  store i32 %21, i32* %10, align 4";
+"bitstring  %9 = alloca i32, align 4" -> "bitstring  store i32 0, i32* %9, align 4";
+controlflow
+"bitstring  %5 = alloca i8*, align 8" -> "bitstring  %6 = alloca i64, align 8";
+"bitstring  %6 = alloca i64, align 8" -> "bitstring  %7 = alloca i32, align 4";
+"bitstring  %7 = alloca i32, align 4" -> "bitstring  %8 = alloca i32, align 4";
+"bitstring  %8 = alloca i32, align 4" -> "bitstring  %9 = alloca i32, align 4";
+"bitstring  %9 = alloca i32, align 4" -> "bitstring  %10 = alloca i32, align 4";
+"bitstring  %10 = alloca i32, align 4" -> "bitstring  store i8* %0, i8** %5, align 8";
+"bitstring  store i8* %0, i8** %5, align 8" -> "bitstring  store i64 %1, i64* %6, align 8";
+"bitstring  store i64 %1, i64* %6, align 8" -> "bitstring  store i32 %2, i32* %7, align 4";
+"bitstring  store i32 %2, i32* %7, align 4" -> "bitstring  store i32 %3, i32* %8, align 4";
+"bitstring  store i32 %3, i32* %8, align 4" -> "bitstring  %11 = load i32, i32* %8, align 4";
+"bitstring  %11 = load i32, i32* %8, align 4" -> "bitstring  %12 = load i32, i32* %7, align 4";
+"bitstring  %12 = load i32, i32* %7, align 4" -> "bitstring  %13 = load i32, i32* %7, align 4";
+"bitstring  %13 = load i32, i32* %7, align 4" -> "bitstring  %14 = ashr i32 %13, 2";
+"bitstring  %14 = ashr i32 %13, 2" -> "bitstring  %15 = add nsw i32 %12, %14";
+"bitstring  %15 = add nsw i32 %12, %14" -> "bitstring  %16 = load i32, i32* %7, align 4";
+"bitstring  %16 = load i32, i32* %7, align 4" -> "bitstring  %17 = srem i32 %16, 4";
+"bitstring  %17 = srem i32 %16, 4" -> "bitstring  %18 = icmp ne i32 %17, 0";
+"bitstring  %18 = icmp ne i32 %17, 0" -> "bitstring  %19 = select i1 %18, i32 0, i32 1";
+"bitstring  %19 = select i1 %18, i32 0, i32 1" -> "bitstring  %20 = sub nsw i32 %15, %19";
+"bitstring  %20 = sub nsw i32 %15, %19" -> "bitstring  %21 = sub nsw i32 %11, %20";
+"bitstring  %21 = sub nsw i32 %11, %20" -> "bitstring  store i32 %21, i32* %10, align 4";
+"bitstring  store i32 %21, i32* %10, align 4" -> "bitstring  store i32 0, i32* %9, align 4";
+"bitstring  store i32 0, i32* %9, align 4" -> "bitstring0  br label %22";
+};
+subgraph cluster_BB1{
+label = BB1;
+dataflow
+"bitstring  %9 = alloca i32, align 4" -> "bitstring  %23 = load i32, i32* %9, align 4";
+"bitstring  %10 = alloca i32, align 4" -> "bitstring  %24 = load i32, i32* %10, align 4";
+"bitstring  %23 = load i32, i32* %9, align 4" -> "bitstring  %25 = icmp slt i32 %23, %24";
+"bitstring  %24 = load i32, i32* %10, align 4" -> "bitstring  %25 = icmp slt i32 %23, %24";
+"bitstring  %25 = icmp slt i32 %23, %24" -> "bitstring1  br i1 %25, label %26, label %32";
+controlflow
+"bitstring  %23 = load i32, i32* %9, align 4" -> "bitstring  %24 = load i32, i32* %10, align 4";
+"bitstring  %24 = load i32, i32* %10, align 4" -> "bitstring  %25 = icmp slt i32 %23, %24";
+"bitstring  %25 = icmp slt i32 %23, %24" -> "bitstring1  br i1 %25, label %26, label %32";
+};
+subgraph cluster_BB2{
+label = BB2;
+dataflow
+"bitstring  %5 = alloca i8*, align 8" -> "bitstring  %27 = load i8*, i8** %5, align 8";
+"bitstring  %27 = load i8*, i8** %5, align 8" -> "bitstring  %28 = getelementptr inbounds i8, i8* %27, i32 1";
+"bitstring  %28 = getelementptr inbounds i8, i8* %27, i32 1" -> "bitstring  store i8* %28, i8** %5, align 8";
+"bitstring  %5 = alloca i8*, align 8" -> "bitstring  store i8* %28, i8** %5, align 8";
+"bitstring  %27 = load i8*, i8** %5, align 8" -> "bitstring  store i8 32, i8* %27, align 1";
+controlflow
+"bitstring  %27 = load i8*, i8** %5, align 8" -> "bitstring  %28 = getelementptr inbounds i8, i8* %27, i32 1";
+"bitstring  %28 = getelementptr inbounds i8, i8* %27, i32 1" -> "bitstring  store i8* %28, i8** %5, align 8";
+"bitstring  store i8* %28, i8** %5, align 8" -> "bitstring  store i8 32, i8* %27, align 1";
+"bitstring  store i8 32, i8* %27, align 1" -> "bitstring2  br label %29";
+};
+subgraph cluster_BB4{
+label = BB4;
+dataflow
+"bitstring  %9 = alloca i32, align 4" -> "bitstring  %30 = load i32, i32* %9, align 4";
+"bitstring  %30 = load i32, i32* %9, align 4" -> "bitstring  %31 = add nsw i32 %30, 1";
+"bitstring  %31 = add nsw i32 %30, 1" -> "bitstring  store i32 %31, i32* %9, align 4";
+"bitstring  %9 = alloca i32, align 4" -> "bitstring  store i32 %31, i32* %9, align 4";
+controlflow
+"bitstring  %30 = load i32, i32* %9, align 4" -> "bitstring  %31 = add nsw i32 %30, 1";
+"bitstring  %31 = add nsw i32 %30, 1" -> "bitstring  store i32 %31, i32* %9, align 4";
+"bitstring  store i32 %31, i32* %9, align 4" -> "bitstring4  br label %22";
+};
+subgraph cluster_BB3{
+label = BB3;
+dataflow
+controlflow
+"bitstring3  br label %33";
+};
+subgraph cluster_BB5{
+label = BB5;
+dataflow
+"bitstring  %7 = alloca i32, align 4" -> "bitstring  %34 = load i32, i32* %7, align 4";
+"bitstring  %34 = load i32, i32* %7, align 4" -> "bitstring  %35 = add nsw i32 %34, -1";
+"bitstring  %35 = add nsw i32 %34, -1" -> "bitstring  store i32 %35, i32* %7, align 4";
+"bitstring  %7 = alloca i32, align 4" -> "bitstring  store i32 %35, i32* %7, align 4";
+"bitstring  %35 = add nsw i32 %34, -1" -> "bitstring  %36 = icmp sge i32 %35, 0";
+"bitstring  %36 = icmp sge i32 %35, 0" -> "bitstring5  br i1 %36, label %37, label %57";
+controlflow
+"bitstring  %34 = load i32, i32* %7, align 4" -> "bitstring  %35 = add nsw i32 %34, -1";
+"bitstring  %35 = add nsw i32 %34, -1" -> "bitstring  store i32 %35, i32* %7, align 4";
+"bitstring  store i32 %35, i32* %7, align 4" -> "bitstring  %36 = icmp sge i32 %35, 0";
+"bitstring  %36 = icmp sge i32 %35, 0" -> "bitstring5  br i1 %36, label %37, label %57";
+};
+subgraph cluster_BB6{
+label = BB6;
+dataflow
+"bitstring  %6 = alloca i64, align 8" -> "bitstring  %38 = load i64, i64* %6, align 8";
+"bitstring  %7 = alloca i32, align 4" -> "bitstring  %39 = load i32, i32* %7, align 4";
+"bitstring  %39 = load i32, i32* %7, align 4" -> "bitstring  %40 = zext i32 %39 to i64";
+"bitstring  %38 = load i64, i64* %6, align 8" -> "bitstring  %41 = ashr i64 %38, %40";
+"bitstring  %40 = zext i32 %39 to i64" -> "bitstring  %41 = ashr i64 %38, %40";
+"bitstring  %41 = ashr i64 %38, %40" -> "bitstring  %42 = and i64 %41, 1";
+"bitstring  %42 = and i64 %41, 1" -> "bitstring  %43 = add nsw i64 %42, 48";
+"bitstring  %43 = add nsw i64 %42, 48" -> "bitstring  %44 = trunc i64 %43 to i8";
+"bitstring  %5 = alloca i8*, align 8" -> "bitstring  %45 = load i8*, i8** %5, align 8";
+"bitstring  %45 = load i8*, i8** %5, align 8" -> "bitstring  %46 = getelementptr inbounds i8, i8* %45, i32 1";
+"bitstring  %46 = getelementptr inbounds i8, i8* %45, i32 1" -> "bitstring  store i8* %46, i8** %5, align 8";
+"bitstring  %5 = alloca i8*, align 8" -> "bitstring  store i8* %46, i8** %5, align 8";
+"bitstring  %44 = trunc i64 %43 to i8" -> "bitstring  store i8 %44, i8* %45, align 1";
+"bitstring  %45 = load i8*, i8** %5, align 8" -> "bitstring  store i8 %44, i8* %45, align 1";
+"bitstring  %7 = alloca i32, align 4" -> "bitstring  %47 = load i32, i32* %7, align 4";
+"bitstring  %47 = load i32, i32* %7, align 4" -> "bitstring  %48 = srem i32 %47, 4";
+"bitstring  %48 = srem i32 %47, 4" -> "bitstring  %49 = icmp ne i32 %48, 0";
+"bitstring  %49 = icmp ne i32 %48, 0" -> "bitstring6  br i1 %49, label %56, label %50";
+controlflow
+"bitstring  %38 = load i64, i64* %6, align 8" -> "bitstring  %39 = load i32, i32* %7, align 4";
+"bitstring  %39 = load i32, i32* %7, align 4" -> "bitstring  %40 = zext i32 %39 to i64";
+"bitstring  %40 = zext i32 %39 to i64" -> "bitstring  %41 = ashr i64 %38, %40";
+"bitstring  %41 = ashr i64 %38, %40" -> "bitstring  %42 = and i64 %41, 1";
+"bitstring  %42 = and i64 %41, 1" -> "bitstring  %43 = add nsw i64 %42, 48";
+"bitstring  %43 = add nsw i64 %42, 48" -> "bitstring  %44 = trunc i64 %43 to i8";
+"bitstring  %44 = trunc i64 %43 to i8" -> "bitstring  %45 = load i8*, i8** %5, align 8";
+"bitstring  %45 = load i8*, i8** %5, align 8" -> "bitstring  %46 = getelementptr inbounds i8, i8* %45, i32 1";
+"bitstring  %46 = getelementptr inbounds i8, i8* %45, i32 1" -> "bitstring  store i8* %46, i8** %5, align 8";
+"bitstring  store i8* %46, i8** %5, align 8" -> "bitstring  store i8 %44, i8* %45, align 1";
+"bitstring  store i8 %44, i8* %45, align 1" -> "bitstring  %47 = load i32, i32* %7, align 4";
+"bitstring  %47 = load i32, i32* %7, align 4" -> "bitstring  %48 = srem i32 %47, 4";
+"bitstring  %48 = srem i32 %47, 4" -> "bitstring  %49 = icmp ne i32 %48, 0";
+"bitstring  %49 = icmp ne i32 %48, 0" -> "bitstring6  br i1 %49, label %56, label %50";
+};
+subgraph cluster_BB9{
+label = BB9;
+dataflow
+"bitstring  %7 = alloca i32, align 4" -> "bitstring  %51 = load i32, i32* %7, align 4";
+"bitstring  %51 = load i32, i32* %7, align 4" -> "bitstring  %52 = icmp ne i32 %51, 0";
+"bitstring  %52 = icmp ne i32 %51, 0" -> "bitstring9  br i1 %52, label %53, label %56";
+controlflow
+"bitstring  %51 = load i32, i32* %7, align 4" -> "bitstring  %52 = icmp ne i32 %51, 0";
+"bitstring  %52 = icmp ne i32 %51, 0" -> "bitstring9  br i1 %52, label %53, label %56";
+};
+subgraph cluster_BB10{
+label = BB10;
+dataflow
+"bitstring  %5 = alloca i8*, align 8" -> "bitstring  %54 = load i8*, i8** %5, align 8";
+"bitstring  %54 = load i8*, i8** %5, align 8" -> "bitstring  %55 = getelementptr inbounds i8, i8* %54, i32 1";
+"bitstring  %55 = getelementptr inbounds i8, i8* %54, i32 1" -> "bitstring  store i8* %55, i8** %5, align 8";
+"bitstring  %5 = alloca i8*, align 8" -> "bitstring  store i8* %55, i8** %5, align 8";
+"bitstring  %54 = load i8*, i8** %5, align 8" -> "bitstring  store i8 32, i8* %54, align 1";
+controlflow
+"bitstring  %54 = load i8*, i8** %5, align 8" -> "bitstring  %55 = getelementptr inbounds i8, i8* %54, i32 1";
+"bitstring  %55 = getelementptr inbounds i8, i8* %54, i32 1" -> "bitstring  store i8* %55, i8** %5, align 8";
+"bitstring  store i8* %55, i8** %5, align 8" -> "bitstring  store i8 32, i8* %54, align 1";
+"bitstring  store i8 32, i8* %54, align 1" -> "bitstring10  br label %56";
+};
+subgraph cluster_BB8{
+label = BB8;
+dataflow
+controlflow
+"bitstring8  br label %33";
+};
+subgraph cluster_BB7{
+label = BB7;
+dataflow
+"bitstring  %5 = alloca i8*, align 8" -> "bitstring  %58 = load i8*, i8** %5, align 8";
+"bitstring  %58 = load i8*, i8** %5, align 8" -> "bitstring  store i8 0, i8* %58, align 1";
+controlflow
+"bitstring  %58 = load i8*, i8** %5, align 8" -> "bitstring  store i8 0, i8* %58, align 1";
+"bitstring  store i8 0, i8* %58, align 1" -> "bitstring  ret void";
+};
+};
+subgraph cluster_main{
+label = main;
+subgraph cluster_BB11{
+label = BB11;
+dataflow
+"main  %1 = alloca i32, align 4" -> "main  store i32 0, i32* %1, align 4";
+"main  %3 = alloca i64, align 8" -> "main  store i64 1, i64* %3, align 8";
+controlflow
+"main  %1 = alloca i32, align 4" -> "main  %2 = alloca [80 x i8], align 16";
+"main  %2 = alloca [80 x i8], align 16" -> "main  %3 = alloca i64, align 8";
+"main  %3 = alloca i64, align 8" -> "main  store i32 0, i32* %1, align 4";
+"main  store i32 0, i32* %1, align 4" -> "main  store i64 1, i64* %3, align 8";
+"main  store i64 1, i64* %3, align 8" -> "main11  br label %4";
+};
+subgraph cluster_BB12{
+label = BB12;
+dataflow
+"main  %3 = alloca i64, align 8" -> "main  %5 = load i64, i64* %3, align 8";
+"main  %5 = load i64, i64* %3, align 8" -> "main  %6 = icmp sle i64 %5, 16";
+"main  %6 = icmp sle i64 %5, 16" -> "main12  br i1 %6, label %7, label %18";
+controlflow
+"main  %5 = load i64, i64* %3, align 8" -> "main  %6 = icmp sle i64 %5, 16";
+"main  %6 = icmp sle i64 %5, 16" -> "main12  br i1 %6, label %7, label %18";
+};
+subgraph cluster_BB13{
+label = BB13;
+dataflow
+"main  %2 = alloca [80 x i8], align 16" -> "main  %8 = getelementptr inbounds [80 x i8], [80 x i8]* %2, i32 0, i32 0";
+"main  %3 = alloca i64, align 8" -> "main  %9 = load i64, i64* %3, align 8";
+"main  %3 = alloca i64, align 8" -> "main  %10 = load i64, i64* %3, align 8";
+"main  %10 = load i64, i64* %3, align 8" -> "main  %11 = trunc i64 %10 to i32";
+"main  %8 = getelementptr inbounds [80 x i8], [80 x i8]* %2, i32 0, i32 0" -> "main  call void @bitstring(i8* %8, i64 %9, i32 %11, i32 16)";
+"main  %9 = load i64, i64* %3, align 8" -> "main  call void @bitstring(i8* %8, i64 %9, i32 %11, i32 16)";
+"main  %11 = trunc i64 %10 to i32" -> "main  call void @bitstring(i8* %8, i64 %9, i32 %11, i32 16)";
+"bitstring" -> "main  call void @bitstring(i8* %8, i64 %9, i32 %11, i32 16)";
+"bitstring" [ color = red ];
+"main  %3 = alloca i64, align 8" -> "main  %12 = load i64, i64* %3, align 8";
+"main  %2 = alloca [80 x i8], align 16" -> "main  %13 = getelementptr inbounds [80 x i8], [80 x i8]* %2, i32 0, i32 0";
+"main  %12 = load i64, i64* %3, align 8" -> "main  %14 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str, i32 0, i32 0), i64 %12, i8* %13)";
+"main  %13 = getelementptr inbounds [80 x i8], [80 x i8]* %2, i32 0, i32 0" -> "main  %14 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str, i32 0, i32 0), i64 %12, i8* %13)";
+"printf" -> "main  %14 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str, i32 0, i32 0), i64 %12, i8* %13)";
+"printf" [ color = red ];
+controlflow
+"main  %8 = getelementptr inbounds [80 x i8], [80 x i8]* %2, i32 0, i32 0" -> "main  %9 = load i64, i64* %3, align 8";
+"main  %9 = load i64, i64* %3, align 8" -> "main  %10 = load i64, i64* %3, align 8";
+"main  %10 = load i64, i64* %3, align 8" -> "main  %11 = trunc i64 %10 to i32";
+"main  %11 = trunc i64 %10 to i32" -> "main  call void @bitstring(i8* %8, i64 %9, i32 %11, i32 16)";
+"main  call void @bitstring(i8* %8, i64 %9, i32 %11, i32 16)" -> "main  %12 = load i64, i64* %3, align 8";
+"main  %12 = load i64, i64* %3, align 8" -> "main  %13 = getelementptr inbounds [80 x i8], [80 x i8]* %2, i32 0, i32 0";
+"main  %13 = getelementptr inbounds [80 x i8], [80 x i8]* %2, i32 0, i32 0" -> "main  %14 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str, i32 0, i32 0), i64 %12, i8* %13)";
+"main  %14 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str, i32 0, i32 0), i64 %12, i8* %13)" -> "main13  br label %15";
+};
+subgraph cluster_BB15{
+label = BB15;
+dataflow
+"main  %3 = alloca i64, align 8" -> "main  %16 = load i64, i64* %3, align 8";
+"main  %16 = load i64, i64* %3, align 8" -> "main  %17 = add nsw i64 %16, 1";
+"main  %17 = add nsw i64 %16, 1" -> "main  store i64 %17, i64* %3, align 8";
+"main  %3 = alloca i64, align 8" -> "main  store i64 %17, i64* %3, align 8";
+controlflow
+"main  %16 = load i64, i64* %3, align 8" -> "main  %17 = add nsw i64 %16, 1";
+"main  %17 = add nsw i64 %16, 1" -> "main  store i64 %17, i64* %3, align 8";
+"main  store i64 %17, i64* %3, align 8" -> "main15  br label %4";
+};
+subgraph cluster_BB14{
+label = BB14;
+dataflow
+controlflow
+"main  ret i32 0";
+};
+};
+bb_call
+"bitstring0  br label %22"-> "bitstring  %23 = load i32, i32* %9, align 4";[ltail = cluster_BB0 lhead = cluster_BB1];
+"bitstring1  br i1 %25, label %26, label %32"-> "bitstring  %27 = load i8*, i8** %5, align 8";[ltail = cluster_BB1 lhead = cluster_BB2];
+"bitstring1  br i1 %25, label %26, label %32"-> "bitstring3  br label %33";[ltail = cluster_BB1 lhead = cluster_BB3];
+"bitstring5  br i1 %36, label %37, label %57"-> "bitstring  %38 = load i64, i64* %6, align 8";[ltail = cluster_BB5 lhead = cluster_BB6];
+"bitstring5  br i1 %36, label %37, label %57"-> "bitstring  %58 = load i8*, i8** %5, align 8";[ltail = cluster_BB5 lhead = cluster_BB7];
+"bitstring2  br label %29"-> "bitstring  %30 = load i32, i32* %9, align 4";[ltail = cluster_BB2 lhead = cluster_BB4];
+"bitstring3  br label %33"-> "bitstring  %34 = load i32, i32* %7, align 4";[ltail = cluster_BB3 lhead = cluster_BB5];
+"bitstring4  br label %22"-> "bitstring  %23 = load i32, i32* %9, align 4";[ltail = cluster_BB4 lhead = cluster_BB1];
+"main11  br label %4"-> "main  %5 = load i64, i64* %3, align 8";[ltail = cluster_BB11 lhead = cluster_BB12];
+"bitstring6  br i1 %49, label %56, label %50"-> "bitstring8  br label %33";[ltail = cluster_BB6 lhead = cluster_BB8];
+"bitstring6  br i1 %49, label %56, label %50"-> "bitstring  %51 = load i32, i32* %7, align 4";[ltail = cluster_BB6 lhead = cluster_BB9];
+"bitstring8  br label %33"-> "bitstring  %34 = load i32, i32* %7, align 4";[ltail = cluster_BB8 lhead = cluster_BB5];
+"bitstring9  br i1 %52, label %53, label %56"-> "bitstring  %54 = load i8*, i8** %5, align 8";[ltail = cluster_BB9 lhead = cluster_BB10];
+"bitstring9  br i1 %52, label %53, label %56"-> "bitstring8  br label %33";[ltail = cluster_BB9 lhead = cluster_BB8];
+"bitstring10  br label %56"-> "bitstring8  br label %33";[ltail = cluster_BB10 lhead = cluster_BB8];
+"main12  br i1 %6, label %7, label %18"-> "main  %8 = getelementptr inbounds [80 x i8], [80 x i8]* %2, i32 0, i32 0";[ltail = cluster_BB12 lhead = cluster_BB13];
+"main12  br i1 %6, label %7, label %18"-> "main  ret i32 0";[ltail = cluster_BB12 lhead = cluster_BB14];
+"main13  br label %15"-> "main  %16 = load i64, i64* %3, align 8";[ltail = cluster_BB13 lhead = cluster_BB15];
+"main15  br label %4"-> "main  %5 = load i64, i64* %3, align 8";[ltail = cluster_BB15 lhead = cluster_BB12];
+fun_call
+"main  call void @bitstring(i8* %8, i64 %9, i32 %11, i32 16)"-> "bitstring  %5 = alloca i8*, align 8";[lhead = cluster_BB0];
+"bitstring  ret void"-> "main  call void @bitstring(i8* %8, i64 %9, i32 %11, i32 16)";[lhead = cluster_BB0];
