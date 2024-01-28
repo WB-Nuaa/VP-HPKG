@@ -1,0 +1,584 @@
+0$enqueue  %3 = alloca i32, align 4
+1$enqueue  %4 = alloca i32, align 4
+2$enqueue  %5 = alloca %struct.process*, align 8
+3$enqueue  %6 = alloca i32, align 4
+4$enqueue  store i32 %0, i32* %4, align 4
+5$enqueue  store %struct.process* %1, %struct.process** %5, align 8
+6$enqueue  %7 = load i32, i32* %4, align 4
+7$enqueue  %8 = load %struct.process*, %struct.process** %5, align 8
+8$enqueue  %9 = call i32 @put_end(i32 %7, %struct.process* %8)
+9$enqueue  store i32 %9, i32* %6, align 4
+10$enqueue  %10 = icmp ne i32 %9, 0
+11$enqueue0  br i1 %10, label %11, label %13
+12$enqueue  %12 = load i32, i32* %6, align 4
+13$enqueue  store i32 %12, i32* %3, align 4
+14$enqueue1  br label %16
+15$enqueue  %14 = load i32, i32* %4, align 4
+16$enqueue  %15 = call i32 @reschedule(i32 %14)
+17$enqueue  store i32 %15, i32* %3, align 4
+18$enqueue2  br label %16
+19$enqueue  %17 = load i32, i32* %3, align 4
+20$enqueue  ret i32 %17
+21$main  %3 = alloca i32, align 4
+22$main  %4 = alloca i32, align 4
+23$main  %5 = alloca i8**, align 8
+24$main  %6 = alloca i32, align 4
+25$main  %7 = alloca i32, align 4
+26$main  %8 = alloca float, align 4
+27$main  %9 = alloca i32, align 4
+28$main  %10 = alloca i32, align 4
+29$main  %11 = alloca i32, align 4
+30$main  %12 = alloca %struct.process*, align 8
+31$main  store i32 0, i32* %3, align 4
+32$main  store i32 %0, i32* %4, align 4
+33$main  store i8** %1, i8*** %5, align 8
+34$main  %13 = load i32, i32* %4, align 4
+35$main  %14 = icmp ne i32 %13, 4
+36$main4  br i1 %14, label %15, label %17
+37$main  %16 = call i32 @exit_here(i32 -1)
+38$main5  br label %17
+39$main  store i32 3, i32* %7, align 4
+40$main6  br label %18
+41$main  %19 = load i32, i32* %7, align 4
+42$main  %20 = icmp sgt i32 %19, 0
+43$main7  br i1 %20, label %21, label %51
+44$main  %22 = load i8**, i8*** %5, align 8
+45$main  %23 = load i32, i32* %7, align 4
+46$main  %24 = sub nsw i32 4, %23
+47$main  %25 = sext i32 %24 to i64
+48$main  %26 = getelementptr inbounds i8*, i8** %22, i64 %25
+49$main  %27 = load i8*, i8** %26, align 8
+50$main  %28 = call i32 (i8*, ...) bitcast (i32 (...)* @atoi to i32 (i8*, ...)*)(i8* %27)
+51$main  store i32 %28, i32* %9, align 4
+52$main  %29 = icmp slt i32 %28, 0
+53$main8  br i1 %29, label %30, label %32
+54$main  %31 = call i32 @exit_here(i32 -2)
+55$main10  br label %32
+56$main11  br label %33
+57$main  %34 = load i32, i32* %9, align 4
+58$main  %35 = icmp sgt i32 %34, 0
+59$main12  br i1 %35, label %36, label %47
+60$main  %37 = load i32, i32* %7, align 4
+61$main  %38 = call i32 @new_job(i32 %37)
+62$main  store i32 %38, i32* %10, align 4
+63$main  %39 = icmp ne i32 %38, 0
+64$main13  br i1 %39, label %40, label %43
+65$main  %41 = load i32, i32* %10, align 4
+66$main  %42 = call i32 @exit_here(i32 %41)
+67$main15  br label %43
+68$main16  br label %44
+69$main  %45 = load i32, i32* %9, align 4
+70$main  %46 = add nsw i32 %45, -1
+71$main  store i32 %46, i32* %9, align 4
+72$main17  br label %33
+73$main14  br label %48
+74$main  %49 = load i32, i32* %7, align 4
+75$main  %50 = add nsw i32 %49, -1
+76$main  store i32 %50, i32* %7, align 4
+77$main18  br label %18
+78$main9  br label %52
+79$main  %53 = call i32 @get_command(i32* %6, i32* %7, float* %8)
+80$main  store i32 %53, i32* %10, align 4
+81$main  %54 = icmp sgt i32 %53, 0
+82$main19  br i1 %54, label %55, label %61
+83$main  %56 = load i32, i32* %6, align 4
+84$main  %57 = load i32, i32* %7, align 4
+85$main  %58 = load float, float* %8, align 4
+86$main  %59 = fpext float %58 to double
+87$main  %60 = call i32 @schedule(i32 %56, i32 %57, double %59)
+88$main20  br label %52
+89$main  %62 = load i32, i32* %10, align 4
+90$main  %63 = icmp slt i32 %62, 0
+91$main21  br i1 %63, label %64, label %67
+92$main  %65 = load i32, i32* %10, align 4
+93$main  %66 = call i32 @exit_here(i32 %65)
+94$main22  br label %67
+95$main  %68 = call i32 @exit_here(i32 0)
+96$main  %69 = load i32, i32* %3, align 4
+97$main  ret i32 %69
+98$get_command  %4 = alloca i32, align 4
+99$get_command  %5 = alloca i32*, align 8
+100$get_command  %6 = alloca i32*, align 8
+101$get_command  %7 = alloca float*, align 8
+102$get_command  %8 = alloca i32, align 4
+103$get_command  %9 = alloca [20 x i8], align 16
+104$get_command  store i32* %0, i32** %5, align 8
+105$get_command  store i32* %1, i32** %6, align 8
+106$get_command  store float* %2, float** %7, align 8
+107$get_command  store i32 0, i32* %8, align 4
+108$get_command  %10 = getelementptr inbounds [20 x i8], [20 x i8]* %9, i32 0, i32 0
+109$get_command  %11 = load %struct._IO_FILE*, %struct._IO_FILE** @stdin, align 8
+110$get_command  %12 = call i8* @fgets(i8* %10, i32 20, %struct._IO_FILE* %11)
+111$get_command  %13 = icmp ne i8* %12, null
+112$get_command24  br i1 %13, label %14, label %54
+113$get_command  %15 = load i32*, i32** %5, align 8
+114$get_command  store i32 -1, i32* %15, align 4
+115$get_command  %16 = load i32*, i32** %6, align 8
+116$get_command  store i32 -1, i32* %16, align 4
+117$get_command  %17 = load float*, float** %7, align 8
+118$get_command  store float -1.000000e+00, float* %17, align 4
+119$get_command  %18 = getelementptr inbounds [20 x i8], [20 x i8]* %9, i32 0, i32 0
+120$get_command  %19 = load i32*, i32** %5, align 8
+121$get_command  %20 = call i32 (i8*, i8*, ...) @__isoc99_sscanf(i8* %18, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i32 0, i32 0), i32* %19) #5
+122$get_command  %21 = load i32*, i32** %5, align 8
+123$get_command  %22 = load i32, i32* %21, align 4
+124$get_command  switch i32 %22, label %36 [i32 1, label %23 i32 4, label %27 i32 2, label %31]
+125$get_command  %24 = getelementptr inbounds [20 x i8], [20 x i8]* %9, i32 0, i32 0
+126$get_command  %25 = load i32*, i32** %6, align 8
+127$get_command  %26 = call i32 (i8*, i8*, ...) @__isoc99_sscanf(i8* %24, i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str.1, i32 0, i32 0), i32* %25) #5
+128$get_command28  br label %36
+129$get_command  %28 = getelementptr inbounds [20 x i8], [20 x i8]* %9, i32 0, i32 0
+130$get_command  %29 = load float*, float** %7, align 8
+131$get_command  %30 = call i32 (i8*, i8*, ...) @__isoc99_sscanf(i8* %28, i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str.2, i32 0, i32 0), float* %29) #5
+132$get_command29  br label %36
+133$get_command  %32 = getelementptr inbounds [20 x i8], [20 x i8]* %9, i32 0, i32 0
+134$get_command  %33 = load i32*, i32** %6, align 8
+135$get_command  %34 = load float*, float** %7, align 8
+136$get_command  %35 = call i32 (i8*, i8*, ...) @__isoc99_sscanf(i8* %32, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.3, i32 0, i32 0), i32* %33, float* %34) #5
+137$get_command30  br label %36
+138$get_command27  br label %37
+139$get_command  %38 = getelementptr inbounds [20 x i8], [20 x i8]* %9, i32 0, i32 0
+140$get_command  %39 = call i64 @strlen(i8* %38)
+141$get_command  %40 = sub i64 %39, 1
+142$get_command  %41 = getelementptr inbounds [20 x i8], [20 x i8]* %9, i64 0, i64 %40
+143$get_command  %42 = load i8, i8* %41, align 1
+144$get_command  %43 = sext i8 %42 to i32
+145$get_command  %44 = icmp ne i32 %43, 10
+146$get_command31  br i1 %44, label %45, label %50
+147$get_command  %46 = getelementptr inbounds [20 x i8], [20 x i8]* %9, i32 0, i32 0
+148$get_command  %47 = load %struct._IO_FILE*, %struct._IO_FILE** @stdin, align 8
+149$get_command  %48 = call i8* @fgets(i8* %46, i32 20, %struct._IO_FILE* %47)
+150$get_command  %49 = icmp ne i8* %48, null
+151$get_command32  br label %50
+152$get_command  %51 = phi i1 [ false, %37 ], [ %49, %45 ]
+153$get_command33  br i1 %51, label %52, label %53
+154$get_command34  br label %37
+155$get_command  store i32 1, i32* %4, align 4
+156$get_command35  br label %55
+157$get_command  store i32 0, i32* %4, align 4
+158$get_command26  br label %55
+159$get_command  %56 = load i32, i32* %4, align 4
+160$get_command  ret i32 %56
+161$exit_here  %2 = alloca i32, align 4
+162$exit_here  %3 = alloca i32, align 4
+163$exit_here  store i32 %0, i32* %3, align 4
+164$exit_here  %4 = load i32, i32* %3, align 4
+165$exit_here  %5 = call i32 @abs(i32 %4) #5
+166$exit_here  call void @exit(i32 %5) #6
+167$exit_here  unreachable
+168$exit_here  %7 = load i32, i32* %2, align 4
+169$exit_here  ret i32 %7
+170$new_job  %2 = alloca i32, align 4
+171$new_job  %3 = alloca i32, align 4
+172$new_job  %4 = alloca i32, align 4
+173$new_job  %5 = alloca %struct.process*, align 8
+174$new_job  store i32 %0, i32* %2, align 4
+175$new_job  store i32 0, i32* %4, align 4
+176$new_job  %6 = load i32, i32* @next_pid, align 4
+177$new_job  %7 = add nsw i32 %6, 1
+178$new_job  store i32 %7, i32* @next_pid, align 4
+179$new_job  store i32 %6, i32* %3, align 4
+180$new_job  %8 = call i8* @malloc(i64 16)
+181$new_job  %9 = bitcast i8* %8 to %struct.process*
+182$new_job  store %struct.process* %9, %struct.process** %5, align 8
+183$new_job  %10 = load %struct.process*, %struct.process** %5, align 8
+184$new_job  %11 = icmp ne %struct.process* %10, null
+185$new_job39  br i1 %11, label %13, label %12
+186$new_job  store i32 -3, i32* %4, align 4
+187$new_job41  br label %31
+188$new_job  %14 = load i32, i32* %3, align 4
+189$new_job  %15 = load %struct.process*, %struct.process** %5, align 8
+190$new_job  %16 = getelementptr inbounds %struct.process, %struct.process* %15, i32 0, i32 0
+191$new_job  store i32 %14, i32* %16, align 8
+192$new_job  %17 = load i32, i32* %2, align 4
+193$new_job  %18 = load %struct.process*, %struct.process** %5, align 8
+194$new_job  %19 = getelementptr inbounds %struct.process, %struct.process* %18, i32 0, i32 1
+195$new_job  store i32 %17, i32* %19, align 4
+196$new_job  %20 = load %struct.process*, %struct.process** %5, align 8
+197$new_job  %21 = getelementptr inbounds %struct.process, %struct.process* %20, i32 0, i32 2
+198$new_job  store %struct.process* null, %struct.process** %21, align 8
+199$new_job  %22 = load i32, i32* %2, align 4
+200$new_job  %23 = load %struct.process*, %struct.process** %5, align 8
+201$new_job  %24 = call i32 @enqueue(i32 %22, %struct.process* %23)
+202$new_job  store i32 %24, i32* %4, align 4
+203$new_job  %25 = load i32, i32* %4, align 4
+204$new_job  %26 = icmp ne i32 %25, 0
+205$new_job40  br i1 %26, label %27, label %30
+206$new_job  %28 = load %struct.process*, %struct.process** %5, align 8
+207$new_job  %29 = call i32 (%struct.process*, ...) bitcast (i32 (...)* @free to i32 (%struct.process*, ...)*)(%struct.process* %28)
+208$new_job43  br label %30
+209$new_job44  br label %31
+210$new_job  %32 = load i32, i32* %4, align 4
+211$new_job  %33 = icmp ne i32 %32, 0
+212$new_job42  br i1 %33, label %34, label %37
+213$new_job  %35 = load i32, i32* @next_pid, align 4
+214$new_job  %36 = add nsw i32 %35, -1
+215$new_job  store i32 %36, i32* @next_pid, align 4
+216$new_job45  br label %37
+217$new_job  %38 = load i32, i32* %4, align 4
+218$new_job  ret i32 %38
+219$upgrade_prio  %3 = alloca i32, align 4
+220$upgrade_prio  %4 = alloca i32, align 4
+221$upgrade_prio  %5 = alloca float, align 4
+222$upgrade_prio  %6 = alloca i32, align 4
+223$upgrade_prio  %7 = alloca %struct.process*, align 8
+224$upgrade_prio  %8 = fptrunc double %1 to float
+225$upgrade_prio  store i32 %0, i32* %4, align 4
+226$upgrade_prio  store float %8, float* %5, align 4
+227$upgrade_prio  %9 = load i32, i32* %4, align 4
+228$upgrade_prio  %10 = icmp slt i32 %9, 1
+229$upgrade_prio47  br i1 %10, label %14, label %11
+230$upgrade_prio  %12 = load i32, i32* %4, align 4
+231$upgrade_prio  %13 = icmp sgt i32 %12, 2
+232$upgrade_prio49  br i1 %13, label %14, label %15
+233$upgrade_prio  store i32 -4, i32* %3, align 4
+234$upgrade_prio48  br label %32
+235$upgrade_prio  %16 = load i32, i32* %4, align 4
+236$upgrade_prio  %17 = load float, float* %5, align 4
+237$upgrade_prio  %18 = fpext float %17 to double
+238$upgrade_prio  %19 = call i32 @get_process(i32 %16, double %18, %struct.process** %7)
+239$upgrade_prio  store i32 %19, i32* %6, align 4
+240$upgrade_prio  %20 = icmp sle i32 %19, 0
+241$upgrade_prio50  br i1 %20, label %21, label %23
+242$upgrade_prio  %22 = load i32, i32* %6, align 4
+243$upgrade_prio  store i32 %22, i32* %3, align 4
+244$upgrade_prio52  br label %32
+245$upgrade_prio  %24 = load i32, i32* %4, align 4
+246$upgrade_prio  %25 = add nsw i32 %24, 1
+247$upgrade_prio  %26 = load %struct.process*, %struct.process** %7, align 8
+248$upgrade_prio  %27 = getelementptr inbounds %struct.process, %struct.process* %26, i32 0, i32 1
+249$upgrade_prio  store i32 %25, i32* %27, align 4
+250$upgrade_prio  %28 = load i32, i32* %4, align 4
+251$upgrade_prio  %29 = add nsw i32 %28, 1
+252$upgrade_prio  %30 = load %struct.process*, %struct.process** %7, align 8
+253$upgrade_prio  %31 = call i32 @enqueue(i32 %29, %struct.process* %30)
+254$upgrade_prio  store i32 %31, i32* %3, align 4
+255$upgrade_prio53  br label %32
+256$upgrade_prio  %33 = load i32, i32* %3, align 4
+257$upgrade_prio  ret i32 %33
+258$block  %1 = alloca i32, align 4
+259$block  %2 = alloca %struct.process*, align 8
+260$block  %3 = call %struct.process* @get_current()
+261$block  store %struct.process* %3, %struct.process** %2, align 8
+262$block  %4 = load %struct.process*, %struct.process** %2, align 8
+263$block  %5 = icmp ne %struct.process* %4, null
+264$block54  br i1 %5, label %6, label %9
+265$block  store %struct.process* null, %struct.process** @current_job, align 8
+266$block  %7 = load %struct.process*, %struct.process** %2, align 8
+267$block  %8 = call i32 @enqueue(i32 0, %struct.process* %7)
+268$block  store i32 %8, i32* %1, align 4
+269$block55  br label %10
+270$block  store i32 0, i32* %1, align 4
+271$block56  br label %10
+272$block  %11 = load i32, i32* %1, align 4
+273$block  ret i32 %11
+274$unblock  %2 = alloca i32, align 4
+275$unblock  %3 = alloca float, align 4
+276$unblock  %4 = alloca i32, align 4
+277$unblock  %5 = alloca %struct.process*, align 8
+278$unblock  %6 = fptrunc double %0 to float
+279$unblock  store float %6, float* %3, align 4
+280$unblock  %7 = load float, float* %3, align 4
+281$unblock  %8 = fpext float %7 to double
+282$unblock  %9 = call i32 @get_process(i32 0, double %8, %struct.process** %5)
+283$unblock  store i32 %9, i32* %4, align 4
+284$unblock  %10 = icmp sle i32 %9, 0
+285$unblock58  br i1 %10, label %11, label %13
+286$unblock  %12 = load i32, i32* %4, align 4
+287$unblock  store i32 %12, i32* %2, align 4
+288$unblock59  br label %19
+289$unblock  %14 = load %struct.process*, %struct.process** %5, align 8
+290$unblock  %15 = getelementptr inbounds %struct.process, %struct.process* %14, i32 0, i32 1
+291$unblock  %16 = load i32, i32* %15, align 4
+292$unblock  %17 = load %struct.process*, %struct.process** %5, align 8
+293$unblock  %18 = call i32 @enqueue(i32 %16, %struct.process* %17)
+294$unblock  store i32 %18, i32* %2, align 4
+295$unblock60  br label %19
+296$unblock  %20 = load i32, i32* %2, align 4
+297$unblock  ret i32 %20
+298$quantum_expire  %1 = alloca i32, align 4
+299$quantum_expire  %2 = alloca %struct.process*, align 8
+300$quantum_expire  %3 = call %struct.process* @get_current()
+301$quantum_expire  store %struct.process* %3, %struct.process** %2, align 8
+302$quantum_expire  %4 = load %struct.process*, %struct.process** %2, align 8
+303$quantum_expire  %5 = icmp ne %struct.process* %4, null
+304$quantum_expire62  br i1 %5, label %6, label %12
+305$quantum_expire  store %struct.process* null, %struct.process** @current_job, align 8
+306$quantum_expire  %7 = load %struct.process*, %struct.process** %2, align 8
+307$quantum_expire  %8 = getelementptr inbounds %struct.process, %struct.process* %7, i32 0, i32 1
+308$quantum_expire  %9 = load i32, i32* %8, align 4
+309$quantum_expire  %10 = load %struct.process*, %struct.process** %2, align 8
+310$quantum_expire  %11 = call i32 @enqueue(i32 %9, %struct.process* %10)
+311$quantum_expire  store i32 %11, i32* %1, align 4
+312$quantum_expire63  br label %13
+313$quantum_expire  store i32 0, i32* %1, align 4
+314$quantum_expire64  br label %13
+315$quantum_expire  %14 = load i32, i32* %1, align 4
+316$quantum_expire  ret i32 %14
+317$finish  %1 = alloca i32, align 4
+318$finish  %2 = alloca %struct.process*, align 8
+319$finish  %3 = call %struct.process* @get_current()
+320$finish  store %struct.process* %3, %struct.process** %2, align 8
+321$finish  %4 = load %struct.process*, %struct.process** %2, align 8
+322$finish  %5 = icmp ne %struct.process* %4, null
+323$finish66  br i1 %5, label %6, label %15
+324$finish  store %struct.process* null, %struct.process** @current_job, align 8
+325$finish  %7 = call i32 @reschedule(i32 0)
+326$finish  %8 = load %struct._IO_FILE*, %struct._IO_FILE** @stdout, align 8
+327$finish  %9 = load %struct.process*, %struct.process** %2, align 8
+328$finish  %10 = getelementptr inbounds %struct.process, %struct.process* %9, i32 0, i32 0
+329$finish  %11 = load i32, i32* %10, align 8
+330$finish  %12 = call i32 (%struct._IO_FILE*, i8*, ...) @fprintf(%struct._IO_FILE* %8, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.4, i32 0, i32 0), i32 %11)
+331$finish  %13 = load %struct.process*, %struct.process** %2, align 8
+332$finish  %14 = call i32 (%struct.process*, ...) bitcast (i32 (...)* @free to i32 (%struct.process*, ...)*)(%struct.process* %13)
+333$finish  store i32 0, i32* %1, align 4
+334$finish67  br label %16
+335$finish  store i32 1, i32* %1, align 4
+336$finish68  br label %16
+337$finish  %17 = load i32, i32* %1, align 4
+338$finish  ret i32 %17
+339$flush70  br label %1
+340$flush  %2 = call i32 @finish()
+341$flush  %3 = icmp ne i32 %2, 0
+342$flush  %4 = xor i1 %3, true
+343$flush71  br i1 %4, label %5, label %6
+344$flush72  br label %1
+345$flush  %7 = load %struct._IO_FILE*, %struct._IO_FILE** @stdout, align 8
+346$flush  %8 = call i32 (%struct._IO_FILE*, i8*, ...) @fprintf(%struct._IO_FILE* %7, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str.5, i32 0, i32 0))
+347$flush  ret i32 0
+348$get_current  %1 = alloca i32, align 4
+349$get_current  %2 = load %struct.process*, %struct.process** @current_job, align 8
+350$get_current  %3 = icmp ne %struct.process* %2, null
+351$get_current74  br i1 %3, label %18, label %4
+352$get_current  store i32 3, i32* %1, align 4
+353$get_current76  br label %5
+354$get_current  %6 = load i32, i32* %1, align 4
+355$get_current  %7 = icmp sgt i32 %6, 0
+356$get_current77  br i1 %7, label %8, label %17
+357$get_current  %9 = load i32, i32* %1, align 4
+358$get_current  %10 = call i32 @get_process(i32 %9, double 0.000000e+00, %struct.process** @current_job)
+359$get_current  %11 = icmp sgt i32 %10, 0
+360$get_current78  br i1 %11, label %12, label %13
+361$get_current80  br label %17
+362$get_current81  br label %14
+363$get_current  %15 = load i32, i32* %1, align 4
+364$get_current  %16 = add nsw i32 %15, -1
+365$get_current  store i32 %16, i32* %1, align 4
+366$get_current82  br label %5
+367$get_current79  br label %18
+368$get_current  %19 = load %struct.process*, %struct.process** @current_job, align 8
+369$get_current  ret %struct.process* %19
+370$reschedule  %2 = alloca i32, align 4
+371$reschedule  store i32 %0, i32* %2, align 4
+372$reschedule  %3 = load %struct.process*, %struct.process** @current_job, align 8
+373$reschedule  %4 = icmp ne %struct.process* %3, null
+374$reschedule83  br i1 %4, label %5, label %17
+375$reschedule  %6 = load i32, i32* %2, align 4
+376$reschedule  %7 = load %struct.process*, %struct.process** @current_job, align 8
+377$reschedule  %8 = getelementptr inbounds %struct.process, %struct.process* %7, i32 0, i32 1
+378$reschedule  %9 = load i32, i32* %8, align 4
+379$reschedule  %10 = icmp sgt i32 %6, %9
+380$reschedule84  br i1 %10, label %11, label %17
+381$reschedule  %12 = load %struct.process*, %struct.process** @current_job, align 8
+382$reschedule  %13 = getelementptr inbounds %struct.process, %struct.process* %12, i32 0, i32 1
+383$reschedule  %14 = load i32, i32* %13, align 4
+384$reschedule  %15 = load %struct.process*, %struct.process** @current_job, align 8
+385$reschedule  %16 = call i32 @put_end(i32 %14, %struct.process* %15)
+386$reschedule  store %struct.process* null, %struct.process** @current_job, align 8
+387$reschedule86  br label %17
+388$reschedule  %18 = call %struct.process* @get_current()
+389$reschedule  ret i32 0
+390$schedule  %4 = alloca i32, align 4
+391$schedule  %5 = alloca i32, align 4
+392$schedule  %6 = alloca float, align 4
+393$schedule  %7 = alloca i32, align 4
+394$schedule  %8 = fptrunc double %2 to float
+395$schedule  store i32 %0, i32* %4, align 4
+396$schedule  store i32 %1, i32* %5, align 4
+397$schedule  store float %8, float* %6, align 4
+398$schedule  store i32 0, i32* %7, align 4
+399$schedule  %9 = load i32, i32* %4, align 4
+400$schedule  switch i32 %9, label %32 [i32 1, label %10 i32 5, label %13 i32 2, label %15 i32 3, label %20 i32 4, label %22 i32 6, label %26 i32 7, label %30]
+401$schedule  %11 = load i32, i32* %5, align 4
+402$schedule  %12 = call i32 @new_job(i32 %11)
+403$schedule  store i32 %12, i32* %7, align 4
+404$schedule89  br label %33
+405$schedule  %14 = call i32 @quantum_expire()
+406$schedule  store i32 %14, i32* %7, align 4
+407$schedule90  br label %33
+408$schedule  %16 = load i32, i32* %5, align 4
+409$schedule  %17 = load float, float* %6, align 4
+410$schedule  %18 = fpext float %17 to double
+411$schedule  %19 = call i32 @upgrade_prio(i32 %16, double %18)
+412$schedule  store i32 %19, i32* %7, align 4
+413$schedule91  br label %33
+414$schedule  %21 = call i32 @block()
+415$schedule  store i32 %21, i32* %7, align 4
+416$schedule92  br label %33
+417$schedule  %23 = load float, float* %6, align 4
+418$schedule  %24 = fpext float %23 to double
+419$schedule  %25 = call i32 @unblock(double %24)
+420$schedule  store i32 %25, i32* %7, align 4
+421$schedule93  br label %33
+422$schedule  %27 = call i32 @finish()
+423$schedule  %28 = load %struct._IO_FILE*, %struct._IO_FILE** @stdout, align 8
+424$schedule  %29 = call i32 (%struct._IO_FILE*, i8*, ...) @fprintf(%struct._IO_FILE* %28, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str.5, i32 0, i32 0))
+425$schedule94  br label %33
+426$schedule  %31 = call i32 @flush()
+427$schedule  store i32 %31, i32* %7, align 4
+428$schedule95  br label %33
+429$schedule  store i32 -6, i32* %7, align 4
+430$schedule88  br label %33
+431$schedule  %34 = load i32, i32* %7, align 4
+432$schedule  ret i32 %34
+433$put_end  %3 = alloca i32, align 4
+434$put_end  %4 = alloca i32, align 4
+435$put_end  %5 = alloca %struct.process*, align 8
+436$put_end  %6 = alloca %struct.process**, align 8
+437$put_end  store i32 %0, i32* %4, align 4
+438$put_end  store %struct.process* %1, %struct.process** %5, align 8
+439$put_end  %7 = load i32, i32* %4, align 4
+440$put_end  %8 = icmp sgt i32 %7, 3
+441$put_end97  br i1 %8, label %12, label %9
+442$put_end  %10 = load i32, i32* %4, align 4
+443$put_end  %11 = icmp slt i32 %10, 0
+444$put_end99  br i1 %11, label %12, label %13
+445$put_end  store i32 -4, i32* %3, align 4
+446$put_end98  br label %36
+447$put_end  %14 = load i32, i32* %4, align 4
+448$put_end  %15 = sext i32 %14 to i64
+449$put_end  %16 = getelementptr inbounds [4 x %struct.queue], [4 x %struct.queue]* @prio_queue, i64 0, i64 %15
+450$put_end  %17 = getelementptr inbounds %struct.queue, %struct.queue* %16, i32 0, i32 1
+451$put_end  store %struct.process** %17, %struct.process*** %6, align 8
+452$put_end100  br label %18
+453$put_end  %19 = load %struct.process**, %struct.process*** %6, align 8
+454$put_end  %20 = load %struct.process*, %struct.process** %19, align 8
+455$put_end  %21 = icmp ne %struct.process* %20, null
+456$put_end102  br i1 %21, label %22, label %27
+457$put_end103  br label %23
+458$put_end  %24 = load %struct.process**, %struct.process*** %6, align 8
+459$put_end  %25 = load %struct.process*, %struct.process** %24, align 8
+460$put_end  %26 = getelementptr inbounds %struct.process, %struct.process* %25, i32 0, i32 2
+461$put_end  store %struct.process** %26, %struct.process*** %6, align 8
+462$put_end105  br label %18
+463$put_end  %28 = load %struct.process*, %struct.process** %5, align 8
+464$put_end  %29 = load %struct.process**, %struct.process*** %6, align 8
+465$put_end  store %struct.process* %28, %struct.process** %29, align 8
+466$put_end  %30 = load i32, i32* %4, align 4
+467$put_end  %31 = sext i32 %30 to i64
+468$put_end  %32 = getelementptr inbounds [4 x %struct.queue], [4 x %struct.queue]* @prio_queue, i64 0, i64 %31
+469$put_end  %33 = getelementptr inbounds %struct.queue, %struct.queue* %32, i32 0, i32 0
+470$put_end  %34 = load i32, i32* %33, align 16
+471$put_end  %35 = add nsw i32 %34, 1
+472$put_end  store i32 %35, i32* %33, align 16
+473$put_end  store i32 0, i32* %3, align 4
+474$put_end104  br label %36
+475$put_end  %37 = load i32, i32* %3, align 4
+476$put_end  ret i32 %37
+477$get_process  %4 = alloca i32, align 4
+478$get_process  %5 = alloca i32, align 4
+479$get_process  %6 = alloca float, align 4
+480$get_process  %7 = alloca %struct.process**, align 8
+481$get_process  %8 = alloca i32, align 4
+482$get_process  %9 = alloca i32, align 4
+483$get_process  %10 = alloca %struct.process**, align 8
+484$get_process  %11 = fptrunc double %1 to float
+485$get_process  store i32 %0, i32* %5, align 4
+486$get_process  store float %11, float* %6, align 4
+487$get_process  store %struct.process** %2, %struct.process*** %7, align 8
+488$get_process  %12 = load i32, i32* %5, align 4
+489$get_process  %13 = icmp sgt i32 %12, 3
+490$get_process106  br i1 %13, label %17, label %14
+491$get_process  %15 = load i32, i32* %5, align 4
+492$get_process  %16 = icmp slt i32 %15, 0
+493$get_process108  br i1 %16, label %17, label %18
+494$get_process  store i32 -4, i32* %4, align 4
+495$get_process107  br label %91
+496$get_process  %19 = load float, float* %6, align 4
+497$get_process  %20 = fpext float %19 to double
+498$get_process  %21 = fcmp olt double %20, 0.000000e+00
+499$get_process109  br i1 %21, label %26, label %22
+500$get_process  %23 = load float, float* %6, align 4
+501$get_process  %24 = fpext float %23 to double
+502$get_process  %25 = fcmp ogt double %24, 1.000000e+00
+503$get_process112  br i1 %25, label %26, label %27
+504$get_process  store i32 -5, i32* %4, align 4
+505$get_process111  br label %91
+506$get_process  %28 = load i32, i32* %5, align 4
+507$get_process  %29 = sext i32 %28 to i64
+508$get_process  %30 = getelementptr inbounds [4 x %struct.queue], [4 x %struct.queue]* @prio_queue, i64 0, i64 %29
+509$get_process  %31 = getelementptr inbounds %struct.queue, %struct.queue* %30, i32 0, i32 0
+510$get_process  %32 = load i32, i32* %31, align 16
+511$get_process  store i32 %32, i32* %8, align 4
+512$get_process  %33 = load float, float* %6, align 4
+513$get_process  %34 = load i32, i32* %8, align 4
+514$get_process  %35 = sitofp i32 %34 to float
+515$get_process  %36 = fmul float %33, %35
+516$get_process  %37 = fptosi float %36 to i32
+517$get_process  store i32 %37, i32* %9, align 4
+518$get_process  %38 = load i32, i32* %9, align 4
+519$get_process  %39 = load i32, i32* %8, align 4
+520$get_process  %40 = icmp sge i32 %38, %39
+521$get_process113  br i1 %40, label %41, label %44
+522$get_process  %42 = load i32, i32* %8, align 4
+523$get_process  %43 = sub nsw i32 %42, 1
+524$get_process114  br label %46
+525$get_process  %45 = load i32, i32* %9, align 4
+526$get_process115  br label %46
+527$get_process  %47 = phi i32 [ %43, %41 ], [ %45, %44 ]
+528$get_process  store i32 %47, i32* %9, align 4
+529$get_process  %48 = load i32, i32* %5, align 4
+530$get_process  %49 = sext i32 %48 to i64
+531$get_process  %50 = getelementptr inbounds [4 x %struct.queue], [4 x %struct.queue]* @prio_queue, i64 0, i64 %49
+532$get_process  %51 = getelementptr inbounds %struct.queue, %struct.queue* %50, i32 0, i32 1
+533$get_process  store %struct.process** %51, %struct.process*** %10, align 8
+534$get_process116  br label %52
+535$get_process  %53 = load i32, i32* %9, align 4
+536$get_process  %54 = icmp ne i32 %53, 0
+537$get_process117  br i1 %54, label %55, label %59
+538$get_process  %56 = load %struct.process**, %struct.process*** %10, align 8
+539$get_process  %57 = load %struct.process*, %struct.process** %56, align 8
+540$get_process  %58 = icmp ne %struct.process* %57, null
+541$get_process118  br label %59
+542$get_process  %60 = phi i1 [ false, %52 ], [ %58, %55 ]
+543$get_process119  br i1 %60, label %61, label %68
+544$get_process  %62 = load %struct.process**, %struct.process*** %10, align 8
+545$get_process  %63 = load %struct.process*, %struct.process** %62, align 8
+546$get_process  %64 = getelementptr inbounds %struct.process, %struct.process* %63, i32 0, i32 2
+547$get_process  store %struct.process** %64, %struct.process*** %10, align 8
+548$get_process120  br label %65
+549$get_process  %66 = load i32, i32* %9, align 4
+550$get_process  %67 = add nsw i32 %66, -1
+551$get_process  store i32 %67, i32* %9, align 4
+552$get_process122  br label %52
+553$get_process  %69 = load %struct.process**, %struct.process*** %10, align 8
+554$get_process  %70 = load %struct.process*, %struct.process** %69, align 8
+555$get_process  %71 = load %struct.process**, %struct.process*** %7, align 8
+556$get_process  store %struct.process* %70, %struct.process** %71, align 8
+557$get_process  %72 = load %struct.process**, %struct.process*** %7, align 8
+558$get_process  %73 = load %struct.process*, %struct.process** %72, align 8
+559$get_process  %74 = icmp ne %struct.process* %73, null
+560$get_process121  br i1 %74, label %75, label %90
+561$get_process  %76 = load %struct.process**, %struct.process*** %10, align 8
+562$get_process  %77 = load %struct.process*, %struct.process** %76, align 8
+563$get_process  %78 = getelementptr inbounds %struct.process, %struct.process* %77, i32 0, i32 2
+564$get_process  %79 = load %struct.process*, %struct.process** %78, align 8
+565$get_process  %80 = load %struct.process**, %struct.process*** %10, align 8
+566$get_process  store %struct.process* %79, %struct.process** %80, align 8
+567$get_process  %81 = load %struct.process**, %struct.process*** %7, align 8
+568$get_process  %82 = load %struct.process*, %struct.process** %81, align 8
+569$get_process  %83 = getelementptr inbounds %struct.process, %struct.process* %82, i32 0, i32 2
+570$get_process  store %struct.process* null, %struct.process** %83, align 8
+571$get_process  %84 = load i32, i32* %5, align 4
+572$get_process  %85 = sext i32 %84 to i64
+573$get_process  %86 = getelementptr inbounds [4 x %struct.queue], [4 x %struct.queue]* @prio_queue, i64 0, i64 %85
+574$get_process  %87 = getelementptr inbounds %struct.queue, %struct.queue* %86, i32 0, i32 0
+575$get_process  %88 = load i32, i32* %87, align 16
+576$get_process  %89 = add nsw i32 %88, -1
+577$get_process  store i32 %89, i32* %87, align 16
+578$get_process  store i32 1, i32* %4, align 4
+579$get_process123  br label %91
+580$get_process  store i32 0, i32* %4, align 4
+581$get_process124  br label %91
+582$get_process  %92 = load i32, i32* %4, align 4
+583$get_process  ret i32 %92
