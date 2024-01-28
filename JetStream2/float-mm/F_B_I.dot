@@ -1,0 +1,168 @@
+0$Initrand  store i64 74755, i64* @seed, align 8
+1$Initrand  ret void
+2$Rand  %1 = load i64, i64* @seed, align 8
+3$Rand  %2 = mul nsw i64 %1, 1309
+4$Rand  %3 = add nsw i64 %2, 13849
+5$Rand  %4 = and i64 %3, 65535
+6$Rand  store i64 %4, i64* @seed, align 8
+7$Rand  %5 = load i64, i64* @seed, align 8
+8$Rand  %6 = trunc i64 %5 to i32
+9$Rand  ret i32 %6
+10$rInitmatrix  %2 = alloca [2 x float]*, align 8
+11$rInitmatrix  %3 = alloca i32, align 4
+12$rInitmatrix  %4 = alloca i32, align 4
+13$rInitmatrix  %5 = alloca i32, align 4
+14$rInitmatrix  store [2 x float]* %0, [2 x float]** %2, align 8
+15$rInitmatrix  store i32 1, i32* %4, align 4
+16$rInitmatrix2  br label %6
+17$rInitmatrix  %7 = load i32, i32* %4, align 4
+18$rInitmatrix  %8 = icmp sle i32 %7, 1
+19$rInitmatrix3  br i1 %8, label %9, label %37
+20$rInitmatrix  store i32 1, i32* %5, align 4
+21$rInitmatrix4  br label %10
+22$rInitmatrix  %11 = load i32, i32* %5, align 4
+23$rInitmatrix  %12 = icmp sle i32 %11, 1
+24$rInitmatrix6  br i1 %12, label %13, label %33
+25$rInitmatrix  %14 = call i32 @Rand()
+26$rInitmatrix  store i32 %14, i32* %3, align 4
+27$rInitmatrix  %15 = load i32, i32* %3, align 4
+28$rInitmatrix  %16 = load i32, i32* %3, align 4
+29$rInitmatrix  %17 = sdiv i32 %16, 120
+30$rInitmatrix  %18 = mul nsw i32 %17, 120
+31$rInitmatrix  %19 = sub nsw i32 %15, %18
+32$rInitmatrix  %20 = sub nsw i32 %19, 60
+33$rInitmatrix  %21 = sitofp i32 %20 to float
+34$rInitmatrix  %22 = fdiv float %21, 3.000000e+00
+35$rInitmatrix  %23 = load [2 x float]*, [2 x float]** %2, align 8
+36$rInitmatrix  %24 = load i32, i32* %4, align 4
+37$rInitmatrix  %25 = sext i32 %24 to i64
+38$rInitmatrix  %26 = getelementptr inbounds [2 x float], [2 x float]* %23, i64 %25
+39$rInitmatrix  %27 = load i32, i32* %5, align 4
+40$rInitmatrix  %28 = sext i32 %27 to i64
+41$rInitmatrix  %29 = getelementptr inbounds [2 x float], [2 x float]* %26, i64 0, i64 %28
+42$rInitmatrix  store float %22, float* %29, align 4
+43$rInitmatrix7  br label %30
+44$rInitmatrix  %31 = load i32, i32* %5, align 4
+45$rInitmatrix  %32 = add nsw i32 %31, 1
+46$rInitmatrix  store i32 %32, i32* %5, align 4
+47$rInitmatrix9  br label %10
+48$rInitmatrix8  br label %34
+49$rInitmatrix  %35 = load i32, i32* %4, align 4
+50$rInitmatrix  %36 = add nsw i32 %35, 1
+51$rInitmatrix  store i32 %36, i32* %4, align 4
+52$rInitmatrix10  br label %6
+53$rInitmatrix  ret void
+54$rInnerproduct  %6 = alloca float*, align 8
+55$rInnerproduct  %7 = alloca [2 x float]*, align 8
+56$rInnerproduct  %8 = alloca [2 x float]*, align 8
+57$rInnerproduct  %9 = alloca i32, align 4
+58$rInnerproduct  %10 = alloca i32, align 4
+59$rInnerproduct  %11 = alloca i32, align 4
+60$rInnerproduct  store float* %0, float** %6, align 8
+61$rInnerproduct  store [2 x float]* %1, [2 x float]** %7, align 8
+62$rInnerproduct  store [2 x float]* %2, [2 x float]** %8, align 8
+63$rInnerproduct  store i32 %3, i32* %9, align 4
+64$rInnerproduct  store i32 %4, i32* %10, align 4
+65$rInnerproduct  %12 = load float*, float** %6, align 8
+66$rInnerproduct  store float 0.000000e+00, float* %12, align 4
+67$rInnerproduct  store i32 1, i32* %11, align 4
+68$rInnerproduct11  br label %13
+69$rInnerproduct  %14 = load i32, i32* %11, align 4
+70$rInnerproduct  %15 = icmp sle i32 %14, 1
+71$rInnerproduct12  br i1 %15, label %16, label %41
+72$rInnerproduct  %17 = load float*, float** %6, align 8
+73$rInnerproduct  %18 = load float, float* %17, align 4
+74$rInnerproduct  %19 = load [2 x float]*, [2 x float]** %7, align 8
+75$rInnerproduct  %20 = load i32, i32* %9, align 4
+76$rInnerproduct  %21 = sext i32 %20 to i64
+77$rInnerproduct  %22 = getelementptr inbounds [2 x float], [2 x float]* %19, i64 %21
+78$rInnerproduct  %23 = load i32, i32* %11, align 4
+79$rInnerproduct  %24 = sext i32 %23 to i64
+80$rInnerproduct  %25 = getelementptr inbounds [2 x float], [2 x float]* %22, i64 0, i64 %24
+81$rInnerproduct  %26 = load float, float* %25, align 4
+82$rInnerproduct  %27 = load [2 x float]*, [2 x float]** %8, align 8
+83$rInnerproduct  %28 = load i32, i32* %11, align 4
+84$rInnerproduct  %29 = sext i32 %28 to i64
+85$rInnerproduct  %30 = getelementptr inbounds [2 x float], [2 x float]* %27, i64 %29
+86$rInnerproduct  %31 = load i32, i32* %10, align 4
+87$rInnerproduct  %32 = sext i32 %31 to i64
+88$rInnerproduct  %33 = getelementptr inbounds [2 x float], [2 x float]* %30, i64 0, i64 %32
+89$rInnerproduct  %34 = load float, float* %33, align 4
+90$rInnerproduct  %35 = fmul float %26, %34
+91$rInnerproduct  %36 = fadd float %18, %35
+92$rInnerproduct  %37 = load float*, float** %6, align 8
+93$rInnerproduct  store float %36, float* %37, align 4
+94$rInnerproduct13  br label %38
+95$rInnerproduct  %39 = load i32, i32* %11, align 4
+96$rInnerproduct  %40 = add nsw i32 %39, 1
+97$rInnerproduct  store i32 %40, i32* %11, align 4
+98$rInnerproduct15  br label %13
+99$rInnerproduct  ret void
+100$Mm  %2 = alloca i32, align 4
+101$Mm  %3 = alloca i32, align 4
+102$Mm  %4 = alloca i32, align 4
+103$Mm  store i32 %0, i32* %2, align 4
+104$Mm  call void @Initrand()
+105$Mm  call void @rInitmatrix([2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rma, i32 0, i32 0))
+106$Mm  call void @rInitmatrix([2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rmb, i32 0, i32 0))
+107$Mm  store i32 1, i32* %3, align 4
+108$Mm16  br label %5
+109$Mm  %6 = load i32, i32* %3, align 4
+110$Mm  %7 = icmp sle i32 %6, 1
+111$Mm17  br i1 %7, label %8, label %28
+112$Mm  store i32 1, i32* %4, align 4
+113$Mm18  br label %9
+114$Mm  %10 = load i32, i32* %4, align 4
+115$Mm  %11 = icmp sle i32 %10, 1
+116$Mm20  br i1 %11, label %12, label %24
+117$Mm  %13 = load i32, i32* %3, align 4
+118$Mm  %14 = sext i32 %13 to i64
+119$Mm  %15 = getelementptr inbounds [2 x [2 x float]], [2 x [2 x float]]* @rmr, i64 0, i64 %14
+120$Mm  %16 = load i32, i32* %4, align 4
+121$Mm  %17 = sext i32 %16 to i64
+122$Mm  %18 = getelementptr inbounds [2 x float], [2 x float]* %15, i64 0, i64 %17
+123$Mm  %19 = load i32, i32* %3, align 4
+124$Mm  %20 = load i32, i32* %4, align 4
+125$Mm  call void @rInnerproduct(float* %18, [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rma, i32 0, i32 0), [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rmb, i32 0, i32 0), i32 %19, i32 %20)
+126$Mm21  br label %21
+127$Mm  %22 = load i32, i32* %4, align 4
+128$Mm  %23 = add nsw i32 %22, 1
+129$Mm  store i32 %23, i32* %4, align 4
+130$Mm23  br label %9
+131$Mm22  br label %25
+132$Mm  %26 = load i32, i32* %3, align 4
+133$Mm  %27 = add nsw i32 %26, 1
+134$Mm  store i32 %27, i32* %3, align 4
+135$Mm24  br label %5
+136$Mm  %29 = load i32, i32* %2, align 4
+137$Mm  %30 = icmp slt i32 %29, 1
+138$Mm19  br i1 %30, label %31, label %43
+139$Mm  %32 = load i32, i32* %2, align 4
+140$Mm  %33 = add nsw i32 %32, 1
+141$Mm  %34 = sext i32 %33 to i64
+142$Mm  %35 = getelementptr inbounds [2 x [2 x float]], [2 x [2 x float]]* @rmr, i64 0, i64 %34
+143$Mm  %36 = load i32, i32* %2, align 4
+144$Mm  %37 = add nsw i32 %36, 1
+145$Mm  %38 = sext i32 %37 to i64
+146$Mm  %39 = getelementptr inbounds [2 x float], [2 x float]* %35, i64 0, i64 %38
+147$Mm  %40 = load float, float* %39, align 4
+148$Mm  %41 = fpext float %40 to double
+149$Mm  %42 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i32 0, i32 0), double %41)
+150$Mm25  br label %43
+151$Mm  ret void
+152$main  %1 = alloca i32, align 4
+153$main  %2 = alloca i32, align 4
+154$main  store i32 0, i32* %1, align 4
+155$main  store i32 0, i32* %2, align 4
+156$main27  br label %3
+157$main  %4 = load i32, i32* %2, align 4
+158$main  %5 = icmp slt i32 %4, 1
+159$main28  br i1 %5, label %6, label %11
+160$main  %7 = load i32, i32* %2, align 4
+161$main  call void @Mm(i32 %7)
+162$main29  br label %8
+163$main  %9 = load i32, i32* %2, align 4
+164$main  %10 = add nsw i32 %9, 1
+165$main  store i32 %10, i32* %2, align 4
+166$main31  br label %3
+167$main  ret i32 0
