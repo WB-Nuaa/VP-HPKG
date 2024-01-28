@@ -1,0 +1,537 @@
+subgraph cluster_Initrand{
+label = Initrand;
+subgraph cluster_BB0{
+label = BB0;
+dataflow
+"seed" -> "Initrand  store i64 74755, i64* @seed, align 8";
+"seed" [ color = red ];
+controlflow
+"Initrand  store i64 74755, i64* @seed, align 8" -> "Initrand  ret void";
+};
+};
+subgraph cluster_Rand{
+label = Rand;
+subgraph cluster_BB1{
+label = BB1;
+dataflow
+"seed" -> "Rand  %1 = load i64, i64* @seed, align 8";
+"seed" [ color = red ];
+"Rand  %1 = load i64, i64* @seed, align 8" -> "Rand  %2 = mul nsw i64 %1, 1309";
+"Rand  %2 = mul nsw i64 %1, 1309" -> "Rand  %3 = add nsw i64 %2, 13849";
+"Rand  %3 = add nsw i64 %2, 13849" -> "Rand  %4 = and i64 %3, 65535";
+"Rand  %4 = and i64 %3, 65535" -> "Rand  store i64 %4, i64* @seed, align 8";
+"seed" -> "Rand  store i64 %4, i64* @seed, align 8";
+"seed" [ color = red ];
+"seed" -> "Rand  %5 = load i64, i64* @seed, align 8";
+"seed" [ color = red ];
+"Rand  %5 = load i64, i64* @seed, align 8" -> "Rand  %6 = trunc i64 %5 to i32";
+"Rand  %6 = trunc i64 %5 to i32" -> "Rand  ret i32 %6";
+controlflow
+"Rand  %1 = load i64, i64* @seed, align 8" -> "Rand  %2 = mul nsw i64 %1, 1309";
+"Rand  %2 = mul nsw i64 %1, 1309" -> "Rand  %3 = add nsw i64 %2, 13849";
+"Rand  %3 = add nsw i64 %2, 13849" -> "Rand  %4 = and i64 %3, 65535";
+"Rand  %4 = and i64 %3, 65535" -> "Rand  store i64 %4, i64* @seed, align 8";
+"Rand  store i64 %4, i64* @seed, align 8" -> "Rand  %5 = load i64, i64* @seed, align 8";
+"Rand  %5 = load i64, i64* @seed, align 8" -> "Rand  %6 = trunc i64 %5 to i32";
+"Rand  %6 = trunc i64 %5 to i32" -> "Rand  ret i32 %6";
+};
+};
+subgraph cluster_rInitmatrix{
+label = rInitmatrix;
+subgraph cluster_BB2{
+label = BB2;
+dataflow
+"rInitmatrix  %2 = alloca [2 x float]*, align 8" -> "rInitmatrix  store [2 x float]* %0, [2 x float]** %2, align 8";
+"rInitmatrix  %4 = alloca i32, align 4" -> "rInitmatrix  store i32 1, i32* %4, align 4";
+controlflow
+"rInitmatrix  %2 = alloca [2 x float]*, align 8" -> "rInitmatrix  %3 = alloca i32, align 4";
+"rInitmatrix  %3 = alloca i32, align 4" -> "rInitmatrix  %4 = alloca i32, align 4";
+"rInitmatrix  %4 = alloca i32, align 4" -> "rInitmatrix  %5 = alloca i32, align 4";
+"rInitmatrix  %5 = alloca i32, align 4" -> "rInitmatrix  store [2 x float]* %0, [2 x float]** %2, align 8";
+"rInitmatrix  store [2 x float]* %0, [2 x float]** %2, align 8" -> "rInitmatrix  store i32 1, i32* %4, align 4";
+"rInitmatrix  store i32 1, i32* %4, align 4" -> "rInitmatrix2  br label %6";
+};
+subgraph cluster_BB3{
+label = BB3;
+dataflow
+"rInitmatrix  %4 = alloca i32, align 4" -> "rInitmatrix  %7 = load i32, i32* %4, align 4";
+"rInitmatrix  %7 = load i32, i32* %4, align 4" -> "rInitmatrix  %8 = icmp sle i32 %7, 1";
+"rInitmatrix  %8 = icmp sle i32 %7, 1" -> "rInitmatrix3  br i1 %8, label %9, label %37";
+controlflow
+"rInitmatrix  %7 = load i32, i32* %4, align 4" -> "rInitmatrix  %8 = icmp sle i32 %7, 1";
+"rInitmatrix  %8 = icmp sle i32 %7, 1" -> "rInitmatrix3  br i1 %8, label %9, label %37";
+};
+subgraph cluster_BB4{
+label = BB4;
+dataflow
+"rInitmatrix  %5 = alloca i32, align 4" -> "rInitmatrix  store i32 1, i32* %5, align 4";
+controlflow
+"rInitmatrix  store i32 1, i32* %5, align 4" -> "rInitmatrix4  br label %10";
+};
+subgraph cluster_BB6{
+label = BB6;
+dataflow
+"rInitmatrix  %5 = alloca i32, align 4" -> "rInitmatrix  %11 = load i32, i32* %5, align 4";
+"rInitmatrix  %11 = load i32, i32* %5, align 4" -> "rInitmatrix  %12 = icmp sle i32 %11, 1";
+"rInitmatrix  %12 = icmp sle i32 %11, 1" -> "rInitmatrix6  br i1 %12, label %13, label %33";
+controlflow
+"rInitmatrix  %11 = load i32, i32* %5, align 4" -> "rInitmatrix  %12 = icmp sle i32 %11, 1";
+"rInitmatrix  %12 = icmp sle i32 %11, 1" -> "rInitmatrix6  br i1 %12, label %13, label %33";
+};
+subgraph cluster_BB7{
+label = BB7;
+dataflow
+"Rand" -> "rInitmatrix  %14 = call i32 @Rand()";
+"Rand" [ color = red ];
+"rInitmatrix  %14 = call i32 @Rand()" -> "rInitmatrix  store i32 %14, i32* %3, align 4";
+"rInitmatrix  %3 = alloca i32, align 4" -> "rInitmatrix  store i32 %14, i32* %3, align 4";
+"rInitmatrix  %3 = alloca i32, align 4" -> "rInitmatrix  %15 = load i32, i32* %3, align 4";
+"rInitmatrix  %3 = alloca i32, align 4" -> "rInitmatrix  %16 = load i32, i32* %3, align 4";
+"rInitmatrix  %16 = load i32, i32* %3, align 4" -> "rInitmatrix  %17 = sdiv i32 %16, 120";
+"rInitmatrix  %17 = sdiv i32 %16, 120" -> "rInitmatrix  %18 = mul nsw i32 %17, 120";
+"rInitmatrix  %15 = load i32, i32* %3, align 4" -> "rInitmatrix  %19 = sub nsw i32 %15, %18";
+"rInitmatrix  %18 = mul nsw i32 %17, 120" -> "rInitmatrix  %19 = sub nsw i32 %15, %18";
+"rInitmatrix  %19 = sub nsw i32 %15, %18" -> "rInitmatrix  %20 = sub nsw i32 %19, 60";
+"rInitmatrix  %20 = sub nsw i32 %19, 60" -> "rInitmatrix  %21 = sitofp i32 %20 to float";
+"rInitmatrix  %21 = sitofp i32 %20 to float" -> "rInitmatrix  %22 = fdiv float %21, 3.000000e+00";
+"rInitmatrix  %2 = alloca [2 x float]*, align 8" -> "rInitmatrix  %23 = load [2 x float]*, [2 x float]** %2, align 8";
+"rInitmatrix  %4 = alloca i32, align 4" -> "rInitmatrix  %24 = load i32, i32* %4, align 4";
+"rInitmatrix  %24 = load i32, i32* %4, align 4" -> "rInitmatrix  %25 = sext i32 %24 to i64";
+"rInitmatrix  %23 = load [2 x float]*, [2 x float]** %2, align 8" -> "rInitmatrix  %26 = getelementptr inbounds [2 x float], [2 x float]* %23, i64 %25";
+"rInitmatrix  %25 = sext i32 %24 to i64" -> "rInitmatrix  %26 = getelementptr inbounds [2 x float], [2 x float]* %23, i64 %25";
+"rInitmatrix  %5 = alloca i32, align 4" -> "rInitmatrix  %27 = load i32, i32* %5, align 4";
+"rInitmatrix  %27 = load i32, i32* %5, align 4" -> "rInitmatrix  %28 = sext i32 %27 to i64";
+"rInitmatrix  %26 = getelementptr inbounds [2 x float], [2 x float]* %23, i64 %25" -> "rInitmatrix  %29 = getelementptr inbounds [2 x float], [2 x float]* %26, i64 0, i64 %28";
+"rInitmatrix  %28 = sext i32 %27 to i64" -> "rInitmatrix  %29 = getelementptr inbounds [2 x float], [2 x float]* %26, i64 0, i64 %28";
+"rInitmatrix  %22 = fdiv float %21, 3.000000e+00" -> "rInitmatrix  store float %22, float* %29, align 4";
+"rInitmatrix  %29 = getelementptr inbounds [2 x float], [2 x float]* %26, i64 0, i64 %28" -> "rInitmatrix  store float %22, float* %29, align 4";
+controlflow
+"rInitmatrix  %14 = call i32 @Rand()" -> "rInitmatrix  store i32 %14, i32* %3, align 4";
+"rInitmatrix  store i32 %14, i32* %3, align 4" -> "rInitmatrix  %15 = load i32, i32* %3, align 4";
+"rInitmatrix  %15 = load i32, i32* %3, align 4" -> "rInitmatrix  %16 = load i32, i32* %3, align 4";
+"rInitmatrix  %16 = load i32, i32* %3, align 4" -> "rInitmatrix  %17 = sdiv i32 %16, 120";
+"rInitmatrix  %17 = sdiv i32 %16, 120" -> "rInitmatrix  %18 = mul nsw i32 %17, 120";
+"rInitmatrix  %18 = mul nsw i32 %17, 120" -> "rInitmatrix  %19 = sub nsw i32 %15, %18";
+"rInitmatrix  %19 = sub nsw i32 %15, %18" -> "rInitmatrix  %20 = sub nsw i32 %19, 60";
+"rInitmatrix  %20 = sub nsw i32 %19, 60" -> "rInitmatrix  %21 = sitofp i32 %20 to float";
+"rInitmatrix  %21 = sitofp i32 %20 to float" -> "rInitmatrix  %22 = fdiv float %21, 3.000000e+00";
+"rInitmatrix  %22 = fdiv float %21, 3.000000e+00" -> "rInitmatrix  %23 = load [2 x float]*, [2 x float]** %2, align 8";
+"rInitmatrix  %23 = load [2 x float]*, [2 x float]** %2, align 8" -> "rInitmatrix  %24 = load i32, i32* %4, align 4";
+"rInitmatrix  %24 = load i32, i32* %4, align 4" -> "rInitmatrix  %25 = sext i32 %24 to i64";
+"rInitmatrix  %25 = sext i32 %24 to i64" -> "rInitmatrix  %26 = getelementptr inbounds [2 x float], [2 x float]* %23, i64 %25";
+"rInitmatrix  %26 = getelementptr inbounds [2 x float], [2 x float]* %23, i64 %25" -> "rInitmatrix  %27 = load i32, i32* %5, align 4";
+"rInitmatrix  %27 = load i32, i32* %5, align 4" -> "rInitmatrix  %28 = sext i32 %27 to i64";
+"rInitmatrix  %28 = sext i32 %27 to i64" -> "rInitmatrix  %29 = getelementptr inbounds [2 x float], [2 x float]* %26, i64 0, i64 %28";
+"rInitmatrix  %29 = getelementptr inbounds [2 x float], [2 x float]* %26, i64 0, i64 %28" -> "rInitmatrix  store float %22, float* %29, align 4";
+"rInitmatrix  store float %22, float* %29, align 4" -> "rInitmatrix7  br label %30";
+};
+subgraph cluster_BB9{
+label = BB9;
+dataflow
+"rInitmatrix  %5 = alloca i32, align 4" -> "rInitmatrix  %31 = load i32, i32* %5, align 4";
+"rInitmatrix  %31 = load i32, i32* %5, align 4" -> "rInitmatrix  %32 = add nsw i32 %31, 1";
+"rInitmatrix  %32 = add nsw i32 %31, 1" -> "rInitmatrix  store i32 %32, i32* %5, align 4";
+"rInitmatrix  %5 = alloca i32, align 4" -> "rInitmatrix  store i32 %32, i32* %5, align 4";
+controlflow
+"rInitmatrix  %31 = load i32, i32* %5, align 4" -> "rInitmatrix  %32 = add nsw i32 %31, 1";
+"rInitmatrix  %32 = add nsw i32 %31, 1" -> "rInitmatrix  store i32 %32, i32* %5, align 4";
+"rInitmatrix  store i32 %32, i32* %5, align 4" -> "rInitmatrix9  br label %10";
+};
+subgraph cluster_BB8{
+label = BB8;
+dataflow
+controlflow
+"rInitmatrix8  br label %34";
+};
+subgraph cluster_BB10{
+label = BB10;
+dataflow
+"rInitmatrix  %4 = alloca i32, align 4" -> "rInitmatrix  %35 = load i32, i32* %4, align 4";
+"rInitmatrix  %35 = load i32, i32* %4, align 4" -> "rInitmatrix  %36 = add nsw i32 %35, 1";
+"rInitmatrix  %36 = add nsw i32 %35, 1" -> "rInitmatrix  store i32 %36, i32* %4, align 4";
+"rInitmatrix  %4 = alloca i32, align 4" -> "rInitmatrix  store i32 %36, i32* %4, align 4";
+controlflow
+"rInitmatrix  %35 = load i32, i32* %4, align 4" -> "rInitmatrix  %36 = add nsw i32 %35, 1";
+"rInitmatrix  %36 = add nsw i32 %35, 1" -> "rInitmatrix  store i32 %36, i32* %4, align 4";
+"rInitmatrix  store i32 %36, i32* %4, align 4" -> "rInitmatrix10  br label %6";
+};
+subgraph cluster_BB5{
+label = BB5;
+dataflow
+controlflow
+"rInitmatrix  ret void";
+};
+};
+subgraph cluster_rInnerproduct{
+label = rInnerproduct;
+subgraph cluster_BB11{
+label = BB11;
+dataflow
+"rInnerproduct  %6 = alloca float*, align 8" -> "rInnerproduct  store float* %0, float** %6, align 8";
+"rInnerproduct  %7 = alloca [2 x float]*, align 8" -> "rInnerproduct  store [2 x float]* %1, [2 x float]** %7, align 8";
+"rInnerproduct  %8 = alloca [2 x float]*, align 8" -> "rInnerproduct  store [2 x float]* %2, [2 x float]** %8, align 8";
+"rInnerproduct  %9 = alloca i32, align 4" -> "rInnerproduct  store i32 %3, i32* %9, align 4";
+"rInnerproduct  %10 = alloca i32, align 4" -> "rInnerproduct  store i32 %4, i32* %10, align 4";
+"rInnerproduct  %6 = alloca float*, align 8" -> "rInnerproduct  %12 = load float*, float** %6, align 8";
+"rInnerproduct  %12 = load float*, float** %6, align 8" -> "rInnerproduct  store float 0.000000e+00, float* %12, align 4";
+"rInnerproduct  %11 = alloca i32, align 4" -> "rInnerproduct  store i32 1, i32* %11, align 4";
+controlflow
+"rInnerproduct  %6 = alloca float*, align 8" -> "rInnerproduct  %7 = alloca [2 x float]*, align 8";
+"rInnerproduct  %7 = alloca [2 x float]*, align 8" -> "rInnerproduct  %8 = alloca [2 x float]*, align 8";
+"rInnerproduct  %8 = alloca [2 x float]*, align 8" -> "rInnerproduct  %9 = alloca i32, align 4";
+"rInnerproduct  %9 = alloca i32, align 4" -> "rInnerproduct  %10 = alloca i32, align 4";
+"rInnerproduct  %10 = alloca i32, align 4" -> "rInnerproduct  %11 = alloca i32, align 4";
+"rInnerproduct  %11 = alloca i32, align 4" -> "rInnerproduct  store float* %0, float** %6, align 8";
+"rInnerproduct  store float* %0, float** %6, align 8" -> "rInnerproduct  store [2 x float]* %1, [2 x float]** %7, align 8";
+"rInnerproduct  store [2 x float]* %1, [2 x float]** %7, align 8" -> "rInnerproduct  store [2 x float]* %2, [2 x float]** %8, align 8";
+"rInnerproduct  store [2 x float]* %2, [2 x float]** %8, align 8" -> "rInnerproduct  store i32 %3, i32* %9, align 4";
+"rInnerproduct  store i32 %3, i32* %9, align 4" -> "rInnerproduct  store i32 %4, i32* %10, align 4";
+"rInnerproduct  store i32 %4, i32* %10, align 4" -> "rInnerproduct  %12 = load float*, float** %6, align 8";
+"rInnerproduct  %12 = load float*, float** %6, align 8" -> "rInnerproduct  store float 0.000000e+00, float* %12, align 4";
+"rInnerproduct  store float 0.000000e+00, float* %12, align 4" -> "rInnerproduct  store i32 1, i32* %11, align 4";
+"rInnerproduct  store i32 1, i32* %11, align 4" -> "rInnerproduct11  br label %13";
+};
+subgraph cluster_BB12{
+label = BB12;
+dataflow
+"rInnerproduct  %11 = alloca i32, align 4" -> "rInnerproduct  %14 = load i32, i32* %11, align 4";
+"rInnerproduct  %14 = load i32, i32* %11, align 4" -> "rInnerproduct  %15 = icmp sle i32 %14, 1";
+"rInnerproduct  %15 = icmp sle i32 %14, 1" -> "rInnerproduct12  br i1 %15, label %16, label %41";
+controlflow
+"rInnerproduct  %14 = load i32, i32* %11, align 4" -> "rInnerproduct  %15 = icmp sle i32 %14, 1";
+"rInnerproduct  %15 = icmp sle i32 %14, 1" -> "rInnerproduct12  br i1 %15, label %16, label %41";
+};
+subgraph cluster_BB13{
+label = BB13;
+dataflow
+"rInnerproduct  %6 = alloca float*, align 8" -> "rInnerproduct  %17 = load float*, float** %6, align 8";
+"rInnerproduct  %17 = load float*, float** %6, align 8" -> "rInnerproduct  %18 = load float, float* %17, align 4";
+"rInnerproduct  %7 = alloca [2 x float]*, align 8" -> "rInnerproduct  %19 = load [2 x float]*, [2 x float]** %7, align 8";
+"rInnerproduct  %9 = alloca i32, align 4" -> "rInnerproduct  %20 = load i32, i32* %9, align 4";
+"rInnerproduct  %20 = load i32, i32* %9, align 4" -> "rInnerproduct  %21 = sext i32 %20 to i64";
+"rInnerproduct  %19 = load [2 x float]*, [2 x float]** %7, align 8" -> "rInnerproduct  %22 = getelementptr inbounds [2 x float], [2 x float]* %19, i64 %21";
+"rInnerproduct  %21 = sext i32 %20 to i64" -> "rInnerproduct  %22 = getelementptr inbounds [2 x float], [2 x float]* %19, i64 %21";
+"rInnerproduct  %11 = alloca i32, align 4" -> "rInnerproduct  %23 = load i32, i32* %11, align 4";
+"rInnerproduct  %23 = load i32, i32* %11, align 4" -> "rInnerproduct  %24 = sext i32 %23 to i64";
+"rInnerproduct  %22 = getelementptr inbounds [2 x float], [2 x float]* %19, i64 %21" -> "rInnerproduct  %25 = getelementptr inbounds [2 x float], [2 x float]* %22, i64 0, i64 %24";
+"rInnerproduct  %24 = sext i32 %23 to i64" -> "rInnerproduct  %25 = getelementptr inbounds [2 x float], [2 x float]* %22, i64 0, i64 %24";
+"rInnerproduct  %25 = getelementptr inbounds [2 x float], [2 x float]* %22, i64 0, i64 %24" -> "rInnerproduct  %26 = load float, float* %25, align 4";
+"rInnerproduct  %8 = alloca [2 x float]*, align 8" -> "rInnerproduct  %27 = load [2 x float]*, [2 x float]** %8, align 8";
+"rInnerproduct  %11 = alloca i32, align 4" -> "rInnerproduct  %28 = load i32, i32* %11, align 4";
+"rInnerproduct  %28 = load i32, i32* %11, align 4" -> "rInnerproduct  %29 = sext i32 %28 to i64";
+"rInnerproduct  %27 = load [2 x float]*, [2 x float]** %8, align 8" -> "rInnerproduct  %30 = getelementptr inbounds [2 x float], [2 x float]* %27, i64 %29";
+"rInnerproduct  %29 = sext i32 %28 to i64" -> "rInnerproduct  %30 = getelementptr inbounds [2 x float], [2 x float]* %27, i64 %29";
+"rInnerproduct  %10 = alloca i32, align 4" -> "rInnerproduct  %31 = load i32, i32* %10, align 4";
+"rInnerproduct  %31 = load i32, i32* %10, align 4" -> "rInnerproduct  %32 = sext i32 %31 to i64";
+"rInnerproduct  %30 = getelementptr inbounds [2 x float], [2 x float]* %27, i64 %29" -> "rInnerproduct  %33 = getelementptr inbounds [2 x float], [2 x float]* %30, i64 0, i64 %32";
+"rInnerproduct  %32 = sext i32 %31 to i64" -> "rInnerproduct  %33 = getelementptr inbounds [2 x float], [2 x float]* %30, i64 0, i64 %32";
+"rInnerproduct  %33 = getelementptr inbounds [2 x float], [2 x float]* %30, i64 0, i64 %32" -> "rInnerproduct  %34 = load float, float* %33, align 4";
+"rInnerproduct  %26 = load float, float* %25, align 4" -> "rInnerproduct  %35 = fmul float %26, %34";
+"rInnerproduct  %34 = load float, float* %33, align 4" -> "rInnerproduct  %35 = fmul float %26, %34";
+"rInnerproduct  %18 = load float, float* %17, align 4" -> "rInnerproduct  %36 = fadd float %18, %35";
+"rInnerproduct  %35 = fmul float %26, %34" -> "rInnerproduct  %36 = fadd float %18, %35";
+"rInnerproduct  %6 = alloca float*, align 8" -> "rInnerproduct  %37 = load float*, float** %6, align 8";
+"rInnerproduct  %36 = fadd float %18, %35" -> "rInnerproduct  store float %36, float* %37, align 4";
+"rInnerproduct  %37 = load float*, float** %6, align 8" -> "rInnerproduct  store float %36, float* %37, align 4";
+controlflow
+"rInnerproduct  %17 = load float*, float** %6, align 8" -> "rInnerproduct  %18 = load float, float* %17, align 4";
+"rInnerproduct  %18 = load float, float* %17, align 4" -> "rInnerproduct  %19 = load [2 x float]*, [2 x float]** %7, align 8";
+"rInnerproduct  %19 = load [2 x float]*, [2 x float]** %7, align 8" -> "rInnerproduct  %20 = load i32, i32* %9, align 4";
+"rInnerproduct  %20 = load i32, i32* %9, align 4" -> "rInnerproduct  %21 = sext i32 %20 to i64";
+"rInnerproduct  %21 = sext i32 %20 to i64" -> "rInnerproduct  %22 = getelementptr inbounds [2 x float], [2 x float]* %19, i64 %21";
+"rInnerproduct  %22 = getelementptr inbounds [2 x float], [2 x float]* %19, i64 %21" -> "rInnerproduct  %23 = load i32, i32* %11, align 4";
+"rInnerproduct  %23 = load i32, i32* %11, align 4" -> "rInnerproduct  %24 = sext i32 %23 to i64";
+"rInnerproduct  %24 = sext i32 %23 to i64" -> "rInnerproduct  %25 = getelementptr inbounds [2 x float], [2 x float]* %22, i64 0, i64 %24";
+"rInnerproduct  %25 = getelementptr inbounds [2 x float], [2 x float]* %22, i64 0, i64 %24" -> "rInnerproduct  %26 = load float, float* %25, align 4";
+"rInnerproduct  %26 = load float, float* %25, align 4" -> "rInnerproduct  %27 = load [2 x float]*, [2 x float]** %8, align 8";
+"rInnerproduct  %27 = load [2 x float]*, [2 x float]** %8, align 8" -> "rInnerproduct  %28 = load i32, i32* %11, align 4";
+"rInnerproduct  %28 = load i32, i32* %11, align 4" -> "rInnerproduct  %29 = sext i32 %28 to i64";
+"rInnerproduct  %29 = sext i32 %28 to i64" -> "rInnerproduct  %30 = getelementptr inbounds [2 x float], [2 x float]* %27, i64 %29";
+"rInnerproduct  %30 = getelementptr inbounds [2 x float], [2 x float]* %27, i64 %29" -> "rInnerproduct  %31 = load i32, i32* %10, align 4";
+"rInnerproduct  %31 = load i32, i32* %10, align 4" -> "rInnerproduct  %32 = sext i32 %31 to i64";
+"rInnerproduct  %32 = sext i32 %31 to i64" -> "rInnerproduct  %33 = getelementptr inbounds [2 x float], [2 x float]* %30, i64 0, i64 %32";
+"rInnerproduct  %33 = getelementptr inbounds [2 x float], [2 x float]* %30, i64 0, i64 %32" -> "rInnerproduct  %34 = load float, float* %33, align 4";
+"rInnerproduct  %34 = load float, float* %33, align 4" -> "rInnerproduct  %35 = fmul float %26, %34";
+"rInnerproduct  %35 = fmul float %26, %34" -> "rInnerproduct  %36 = fadd float %18, %35";
+"rInnerproduct  %36 = fadd float %18, %35" -> "rInnerproduct  %37 = load float*, float** %6, align 8";
+"rInnerproduct  %37 = load float*, float** %6, align 8" -> "rInnerproduct  store float %36, float* %37, align 4";
+"rInnerproduct  store float %36, float* %37, align 4" -> "rInnerproduct13  br label %38";
+};
+subgraph cluster_BB15{
+label = BB15;
+dataflow
+"rInnerproduct  %11 = alloca i32, align 4" -> "rInnerproduct  %39 = load i32, i32* %11, align 4";
+"rInnerproduct  %39 = load i32, i32* %11, align 4" -> "rInnerproduct  %40 = add nsw i32 %39, 1";
+"rInnerproduct  %40 = add nsw i32 %39, 1" -> "rInnerproduct  store i32 %40, i32* %11, align 4";
+"rInnerproduct  %11 = alloca i32, align 4" -> "rInnerproduct  store i32 %40, i32* %11, align 4";
+controlflow
+"rInnerproduct  %39 = load i32, i32* %11, align 4" -> "rInnerproduct  %40 = add nsw i32 %39, 1";
+"rInnerproduct  %40 = add nsw i32 %39, 1" -> "rInnerproduct  store i32 %40, i32* %11, align 4";
+"rInnerproduct  store i32 %40, i32* %11, align 4" -> "rInnerproduct15  br label %13";
+};
+subgraph cluster_BB14{
+label = BB14;
+dataflow
+controlflow
+"rInnerproduct  ret void";
+};
+};
+subgraph cluster_Mm{
+label = Mm;
+subgraph cluster_BB16{
+label = BB16;
+dataflow
+"Mm  %2 = alloca i32, align 4" -> "Mm  store i32 %0, i32* %2, align 4";
+"Initrand" -> "Mm  call void @Initrand()";
+"Initrand" [ color = red ];
+"rInitmatrix" -> "Mm  call void @rInitmatrix([2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rma, i32 0, i32 0))";
+"rInitmatrix" [ color = red ];
+"rInitmatrix" -> "Mm  call void @rInitmatrix([2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rmb, i32 0, i32 0))";
+"rInitmatrix" [ color = red ];
+"Mm  %3 = alloca i32, align 4" -> "Mm  store i32 1, i32* %3, align 4";
+controlflow
+"Mm  %2 = alloca i32, align 4" -> "Mm  %3 = alloca i32, align 4";
+"Mm  %3 = alloca i32, align 4" -> "Mm  %4 = alloca i32, align 4";
+"Mm  %4 = alloca i32, align 4" -> "Mm  store i32 %0, i32* %2, align 4";
+"Mm  store i32 %0, i32* %2, align 4" -> "Mm  call void @Initrand()";
+"Mm  call void @Initrand()" -> "Mm  call void @rInitmatrix([2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rma, i32 0, i32 0))";
+"Mm  call void @rInitmatrix([2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rma, i32 0, i32 0))" -> "Mm  call void @rInitmatrix([2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rmb, i32 0, i32 0))";
+"Mm  call void @rInitmatrix([2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rmb, i32 0, i32 0))" -> "Mm  store i32 1, i32* %3, align 4";
+"Mm  store i32 1, i32* %3, align 4" -> "Mm16  br label %5";
+};
+subgraph cluster_BB17{
+label = BB17;
+dataflow
+"Mm  %3 = alloca i32, align 4" -> "Mm  %6 = load i32, i32* %3, align 4";
+"Mm  %6 = load i32, i32* %3, align 4" -> "Mm  %7 = icmp sle i32 %6, 1";
+"Mm  %7 = icmp sle i32 %6, 1" -> "Mm17  br i1 %7, label %8, label %28";
+controlflow
+"Mm  %6 = load i32, i32* %3, align 4" -> "Mm  %7 = icmp sle i32 %6, 1";
+"Mm  %7 = icmp sle i32 %6, 1" -> "Mm17  br i1 %7, label %8, label %28";
+};
+subgraph cluster_BB18{
+label = BB18;
+dataflow
+"Mm  %4 = alloca i32, align 4" -> "Mm  store i32 1, i32* %4, align 4";
+controlflow
+"Mm  store i32 1, i32* %4, align 4" -> "Mm18  br label %9";
+};
+subgraph cluster_BB20{
+label = BB20;
+dataflow
+"Mm  %4 = alloca i32, align 4" -> "Mm  %10 = load i32, i32* %4, align 4";
+"Mm  %10 = load i32, i32* %4, align 4" -> "Mm  %11 = icmp sle i32 %10, 1";
+"Mm  %11 = icmp sle i32 %10, 1" -> "Mm20  br i1 %11, label %12, label %24";
+controlflow
+"Mm  %10 = load i32, i32* %4, align 4" -> "Mm  %11 = icmp sle i32 %10, 1";
+"Mm  %11 = icmp sle i32 %10, 1" -> "Mm20  br i1 %11, label %12, label %24";
+};
+subgraph cluster_BB21{
+label = BB21;
+dataflow
+"Mm  %3 = alloca i32, align 4" -> "Mm  %13 = load i32, i32* %3, align 4";
+"Mm  %13 = load i32, i32* %3, align 4" -> "Mm  %14 = sext i32 %13 to i64";
+"rmr" -> "Mm  %15 = getelementptr inbounds [2 x [2 x float]], [2 x [2 x float]]* @rmr, i64 0, i64 %14";
+"rmr" [ color = red ];
+"Mm  %14 = sext i32 %13 to i64" -> "Mm  %15 = getelementptr inbounds [2 x [2 x float]], [2 x [2 x float]]* @rmr, i64 0, i64 %14";
+"Mm  %4 = alloca i32, align 4" -> "Mm  %16 = load i32, i32* %4, align 4";
+"Mm  %16 = load i32, i32* %4, align 4" -> "Mm  %17 = sext i32 %16 to i64";
+"Mm  %15 = getelementptr inbounds [2 x [2 x float]], [2 x [2 x float]]* @rmr, i64 0, i64 %14" -> "Mm  %18 = getelementptr inbounds [2 x float], [2 x float]* %15, i64 0, i64 %17";
+"Mm  %17 = sext i32 %16 to i64" -> "Mm  %18 = getelementptr inbounds [2 x float], [2 x float]* %15, i64 0, i64 %17";
+"Mm  %3 = alloca i32, align 4" -> "Mm  %19 = load i32, i32* %3, align 4";
+"Mm  %4 = alloca i32, align 4" -> "Mm  %20 = load i32, i32* %4, align 4";
+"Mm  %18 = getelementptr inbounds [2 x float], [2 x float]* %15, i64 0, i64 %17" -> "Mm  call void @rInnerproduct(float* %18, [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rma, i32 0, i32 0), [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rmb, i32 0, i32 0), i32 %19, i32 %20)";
+"Mm  %19 = load i32, i32* %3, align 4" -> "Mm  call void @rInnerproduct(float* %18, [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rma, i32 0, i32 0), [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rmb, i32 0, i32 0), i32 %19, i32 %20)";
+"Mm  %20 = load i32, i32* %4, align 4" -> "Mm  call void @rInnerproduct(float* %18, [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rma, i32 0, i32 0), [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rmb, i32 0, i32 0), i32 %19, i32 %20)";
+"rInnerproduct" -> "Mm  call void @rInnerproduct(float* %18, [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rma, i32 0, i32 0), [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rmb, i32 0, i32 0), i32 %19, i32 %20)";
+"rInnerproduct" [ color = red ];
+controlflow
+"Mm  %13 = load i32, i32* %3, align 4" -> "Mm  %14 = sext i32 %13 to i64";
+"Mm  %14 = sext i32 %13 to i64" -> "Mm  %15 = getelementptr inbounds [2 x [2 x float]], [2 x [2 x float]]* @rmr, i64 0, i64 %14";
+"Mm  %15 = getelementptr inbounds [2 x [2 x float]], [2 x [2 x float]]* @rmr, i64 0, i64 %14" -> "Mm  %16 = load i32, i32* %4, align 4";
+"Mm  %16 = load i32, i32* %4, align 4" -> "Mm  %17 = sext i32 %16 to i64";
+"Mm  %17 = sext i32 %16 to i64" -> "Mm  %18 = getelementptr inbounds [2 x float], [2 x float]* %15, i64 0, i64 %17";
+"Mm  %18 = getelementptr inbounds [2 x float], [2 x float]* %15, i64 0, i64 %17" -> "Mm  %19 = load i32, i32* %3, align 4";
+"Mm  %19 = load i32, i32* %3, align 4" -> "Mm  %20 = load i32, i32* %4, align 4";
+"Mm  %20 = load i32, i32* %4, align 4" -> "Mm  call void @rInnerproduct(float* %18, [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rma, i32 0, i32 0), [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rmb, i32 0, i32 0), i32 %19, i32 %20)";
+"Mm  call void @rInnerproduct(float* %18, [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rma, i32 0, i32 0), [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rmb, i32 0, i32 0), i32 %19, i32 %20)" -> "Mm21  br label %21";
+};
+subgraph cluster_BB23{
+label = BB23;
+dataflow
+"Mm  %4 = alloca i32, align 4" -> "Mm  %22 = load i32, i32* %4, align 4";
+"Mm  %22 = load i32, i32* %4, align 4" -> "Mm  %23 = add nsw i32 %22, 1";
+"Mm  %23 = add nsw i32 %22, 1" -> "Mm  store i32 %23, i32* %4, align 4";
+"Mm  %4 = alloca i32, align 4" -> "Mm  store i32 %23, i32* %4, align 4";
+controlflow
+"Mm  %22 = load i32, i32* %4, align 4" -> "Mm  %23 = add nsw i32 %22, 1";
+"Mm  %23 = add nsw i32 %22, 1" -> "Mm  store i32 %23, i32* %4, align 4";
+"Mm  store i32 %23, i32* %4, align 4" -> "Mm23  br label %9";
+};
+subgraph cluster_BB22{
+label = BB22;
+dataflow
+controlflow
+"Mm22  br label %25";
+};
+subgraph cluster_BB24{
+label = BB24;
+dataflow
+"Mm  %3 = alloca i32, align 4" -> "Mm  %26 = load i32, i32* %3, align 4";
+"Mm  %26 = load i32, i32* %3, align 4" -> "Mm  %27 = add nsw i32 %26, 1";
+"Mm  %27 = add nsw i32 %26, 1" -> "Mm  store i32 %27, i32* %3, align 4";
+"Mm  %3 = alloca i32, align 4" -> "Mm  store i32 %27, i32* %3, align 4";
+controlflow
+"Mm  %26 = load i32, i32* %3, align 4" -> "Mm  %27 = add nsw i32 %26, 1";
+"Mm  %27 = add nsw i32 %26, 1" -> "Mm  store i32 %27, i32* %3, align 4";
+"Mm  store i32 %27, i32* %3, align 4" -> "Mm24  br label %5";
+};
+subgraph cluster_BB19{
+label = BB19;
+dataflow
+"Mm  %2 = alloca i32, align 4" -> "Mm  %29 = load i32, i32* %2, align 4";
+"Mm  %29 = load i32, i32* %2, align 4" -> "Mm  %30 = icmp slt i32 %29, 1";
+"Mm  %30 = icmp slt i32 %29, 1" -> "Mm19  br i1 %30, label %31, label %43";
+controlflow
+"Mm  %29 = load i32, i32* %2, align 4" -> "Mm  %30 = icmp slt i32 %29, 1";
+"Mm  %30 = icmp slt i32 %29, 1" -> "Mm19  br i1 %30, label %31, label %43";
+};
+subgraph cluster_BB25{
+label = BB25;
+dataflow
+"Mm  %2 = alloca i32, align 4" -> "Mm  %32 = load i32, i32* %2, align 4";
+"Mm  %32 = load i32, i32* %2, align 4" -> "Mm  %33 = add nsw i32 %32, 1";
+"Mm  %33 = add nsw i32 %32, 1" -> "Mm  %34 = sext i32 %33 to i64";
+"rmr" -> "Mm  %35 = getelementptr inbounds [2 x [2 x float]], [2 x [2 x float]]* @rmr, i64 0, i64 %34";
+"rmr" [ color = red ];
+"Mm  %34 = sext i32 %33 to i64" -> "Mm  %35 = getelementptr inbounds [2 x [2 x float]], [2 x [2 x float]]* @rmr, i64 0, i64 %34";
+"Mm  %2 = alloca i32, align 4" -> "Mm  %36 = load i32, i32* %2, align 4";
+"Mm  %36 = load i32, i32* %2, align 4" -> "Mm  %37 = add nsw i32 %36, 1";
+"Mm  %37 = add nsw i32 %36, 1" -> "Mm  %38 = sext i32 %37 to i64";
+"Mm  %35 = getelementptr inbounds [2 x [2 x float]], [2 x [2 x float]]* @rmr, i64 0, i64 %34" -> "Mm  %39 = getelementptr inbounds [2 x float], [2 x float]* %35, i64 0, i64 %38";
+"Mm  %38 = sext i32 %37 to i64" -> "Mm  %39 = getelementptr inbounds [2 x float], [2 x float]* %35, i64 0, i64 %38";
+"Mm  %39 = getelementptr inbounds [2 x float], [2 x float]* %35, i64 0, i64 %38" -> "Mm  %40 = load float, float* %39, align 4";
+"Mm  %40 = load float, float* %39, align 4" -> "Mm  %41 = fpext float %40 to double";
+"Mm  %41 = fpext float %40 to double" -> "Mm  %42 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i32 0, i32 0), double %41)";
+"printf" -> "Mm  %42 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i32 0, i32 0), double %41)";
+"printf" [ color = red ];
+controlflow
+"Mm  %32 = load i32, i32* %2, align 4" -> "Mm  %33 = add nsw i32 %32, 1";
+"Mm  %33 = add nsw i32 %32, 1" -> "Mm  %34 = sext i32 %33 to i64";
+"Mm  %34 = sext i32 %33 to i64" -> "Mm  %35 = getelementptr inbounds [2 x [2 x float]], [2 x [2 x float]]* @rmr, i64 0, i64 %34";
+"Mm  %35 = getelementptr inbounds [2 x [2 x float]], [2 x [2 x float]]* @rmr, i64 0, i64 %34" -> "Mm  %36 = load i32, i32* %2, align 4";
+"Mm  %36 = load i32, i32* %2, align 4" -> "Mm  %37 = add nsw i32 %36, 1";
+"Mm  %37 = add nsw i32 %36, 1" -> "Mm  %38 = sext i32 %37 to i64";
+"Mm  %38 = sext i32 %37 to i64" -> "Mm  %39 = getelementptr inbounds [2 x float], [2 x float]* %35, i64 0, i64 %38";
+"Mm  %39 = getelementptr inbounds [2 x float], [2 x float]* %35, i64 0, i64 %38" -> "Mm  %40 = load float, float* %39, align 4";
+"Mm  %40 = load float, float* %39, align 4" -> "Mm  %41 = fpext float %40 to double";
+"Mm  %41 = fpext float %40 to double" -> "Mm  %42 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i32 0, i32 0), double %41)";
+"Mm  %42 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i32 0, i32 0), double %41)" -> "Mm25  br label %43";
+};
+subgraph cluster_BB26{
+label = BB26;
+dataflow
+controlflow
+"Mm  ret void";
+};
+};
+subgraph cluster_main{
+label = main;
+subgraph cluster_BB27{
+label = BB27;
+dataflow
+"main  %1 = alloca i32, align 4" -> "main  store i32 0, i32* %1, align 4";
+"main  %2 = alloca i32, align 4" -> "main  store i32 0, i32* %2, align 4";
+controlflow
+"main  %1 = alloca i32, align 4" -> "main  %2 = alloca i32, align 4";
+"main  %2 = alloca i32, align 4" -> "main  store i32 0, i32* %1, align 4";
+"main  store i32 0, i32* %1, align 4" -> "main  store i32 0, i32* %2, align 4";
+"main  store i32 0, i32* %2, align 4" -> "main27  br label %3";
+};
+subgraph cluster_BB28{
+label = BB28;
+dataflow
+"main  %2 = alloca i32, align 4" -> "main  %4 = load i32, i32* %2, align 4";
+"main  %4 = load i32, i32* %2, align 4" -> "main  %5 = icmp slt i32 %4, 1";
+"main  %5 = icmp slt i32 %4, 1" -> "main28  br i1 %5, label %6, label %11";
+controlflow
+"main  %4 = load i32, i32* %2, align 4" -> "main  %5 = icmp slt i32 %4, 1";
+"main  %5 = icmp slt i32 %4, 1" -> "main28  br i1 %5, label %6, label %11";
+};
+subgraph cluster_BB29{
+label = BB29;
+dataflow
+"main  %2 = alloca i32, align 4" -> "main  %7 = load i32, i32* %2, align 4";
+"main  %7 = load i32, i32* %2, align 4" -> "main  call void @Mm(i32 %7)";
+"Mm" -> "main  call void @Mm(i32 %7)";
+"Mm" [ color = red ];
+controlflow
+"main  %7 = load i32, i32* %2, align 4" -> "main  call void @Mm(i32 %7)";
+"main  call void @Mm(i32 %7)" -> "main29  br label %8";
+};
+subgraph cluster_BB31{
+label = BB31;
+dataflow
+"main  %2 = alloca i32, align 4" -> "main  %9 = load i32, i32* %2, align 4";
+"main  %9 = load i32, i32* %2, align 4" -> "main  %10 = add nsw i32 %9, 1";
+"main  %10 = add nsw i32 %9, 1" -> "main  store i32 %10, i32* %2, align 4";
+"main  %2 = alloca i32, align 4" -> "main  store i32 %10, i32* %2, align 4";
+controlflow
+"main  %9 = load i32, i32* %2, align 4" -> "main  %10 = add nsw i32 %9, 1";
+"main  %10 = add nsw i32 %9, 1" -> "main  store i32 %10, i32* %2, align 4";
+"main  store i32 %10, i32* %2, align 4" -> "main31  br label %3";
+};
+subgraph cluster_BB30{
+label = BB30;
+dataflow
+controlflow
+"main  ret i32 0";
+};
+};
+bb_call
+"rInitmatrix2  br label %6"-> "rInitmatrix  %7 = load i32, i32* %4, align 4";[ltail = cluster_BB2 lhead = cluster_BB3];
+"rInitmatrix4  br label %10"-> "rInitmatrix  %11 = load i32, i32* %5, align 4";[ltail = cluster_BB4 lhead = cluster_BB6];
+"rInitmatrix3  br i1 %8, label %9, label %37"-> "rInitmatrix  store i32 1, i32* %5, align 4";[ltail = cluster_BB3 lhead = cluster_BB4];
+"rInitmatrix3  br i1 %8, label %9, label %37"-> "rInitmatrix  ret void";[ltail = cluster_BB3 lhead = cluster_BB5];
+"rInitmatrix6  br i1 %12, label %13, label %33"-> "rInitmatrix  %14 = call i32 @Rand()";[ltail = cluster_BB6 lhead = cluster_BB7];
+"rInitmatrix6  br i1 %12, label %13, label %33"-> "rInitmatrix8  br label %34";[ltail = cluster_BB6 lhead = cluster_BB8];
+"rInitmatrix7  br label %30"-> "rInitmatrix  %31 = load i32, i32* %5, align 4";[ltail = cluster_BB7 lhead = cluster_BB9];
+"rInitmatrix8  br label %34"-> "rInitmatrix  %35 = load i32, i32* %4, align 4";[ltail = cluster_BB8 lhead = cluster_BB10];
+"rInitmatrix9  br label %10"-> "rInitmatrix  %11 = load i32, i32* %5, align 4";[ltail = cluster_BB9 lhead = cluster_BB6];
+"rInnerproduct12  br i1 %15, label %16, label %41"-> "rInnerproduct  %17 = load float*, float** %6, align 8";[ltail = cluster_BB12 lhead = cluster_BB13];
+"rInnerproduct12  br i1 %15, label %16, label %41"-> "rInnerproduct  ret void";[ltail = cluster_BB12 lhead = cluster_BB14];
+"rInitmatrix10  br label %6"-> "rInitmatrix  %7 = load i32, i32* %4, align 4";[ltail = cluster_BB10 lhead = cluster_BB3];
+"rInnerproduct11  br label %13"-> "rInnerproduct  %14 = load i32, i32* %11, align 4";[ltail = cluster_BB11 lhead = cluster_BB12];
+"rInnerproduct13  br label %38"-> "rInnerproduct  %39 = load i32, i32* %11, align 4";[ltail = cluster_BB13 lhead = cluster_BB15];
+"Mm16  br label %5"-> "Mm  %6 = load i32, i32* %3, align 4";[ltail = cluster_BB16 lhead = cluster_BB17];
+"rInnerproduct15  br label %13"-> "rInnerproduct  %14 = load i32, i32* %11, align 4";[ltail = cluster_BB15 lhead = cluster_BB12];
+"Mm20  br i1 %11, label %12, label %24"-> "Mm  %13 = load i32, i32* %3, align 4";[ltail = cluster_BB20 lhead = cluster_BB21];
+"Mm20  br i1 %11, label %12, label %24"-> "Mm22  br label %25";[ltail = cluster_BB20 lhead = cluster_BB22];
+"Mm17  br i1 %7, label %8, label %28"-> "Mm  store i32 1, i32* %4, align 4";[ltail = cluster_BB17 lhead = cluster_BB18];
+"Mm17  br i1 %7, label %8, label %28"-> "Mm  %29 = load i32, i32* %2, align 4";[ltail = cluster_BB17 lhead = cluster_BB19];
+"Mm18  br label %9"-> "Mm  %10 = load i32, i32* %4, align 4";[ltail = cluster_BB18 lhead = cluster_BB20];
+"Mm19  br i1 %30, label %31, label %43"-> "Mm  %32 = load i32, i32* %2, align 4";[ltail = cluster_BB19 lhead = cluster_BB25];
+"Mm19  br i1 %30, label %31, label %43"-> "Mm  ret void";[ltail = cluster_BB19 lhead = cluster_BB26];
+"Mm21  br label %21"-> "Mm  %22 = load i32, i32* %4, align 4";[ltail = cluster_BB21 lhead = cluster_BB23];
+"Mm22  br label %25"-> "Mm  %26 = load i32, i32* %3, align 4";[ltail = cluster_BB22 lhead = cluster_BB24];
+"Mm23  br label %9"-> "Mm  %10 = load i32, i32* %4, align 4";[ltail = cluster_BB23 lhead = cluster_BB20];
+"Mm24  br label %5"-> "Mm  %6 = load i32, i32* %3, align 4";[ltail = cluster_BB24 lhead = cluster_BB17];
+"Mm25  br label %43"-> "Mm  ret void";[ltail = cluster_BB25 lhead = cluster_BB26];
+"main27  br label %3"-> "main  %4 = load i32, i32* %2, align 4";[ltail = cluster_BB27 lhead = cluster_BB28];
+"main28  br i1 %5, label %6, label %11"-> "main  %7 = load i32, i32* %2, align 4";[ltail = cluster_BB28 lhead = cluster_BB29];
+"main28  br i1 %5, label %6, label %11"-> "main  ret i32 0";[ltail = cluster_BB28 lhead = cluster_BB30];
+"main29  br label %8"-> "main  %9 = load i32, i32* %2, align 4";[ltail = cluster_BB29 lhead = cluster_BB31];
+"main31  br label %3"-> "main  %4 = load i32, i32* %2, align 4";[ltail = cluster_BB31 lhead = cluster_BB28];
+fun_call
+"rInitmatrix  %14 = call i32 @Rand()"-> "Rand  %1 = load i64, i64* @seed, align 8";[lhead = cluster_BB1];
+"Rand  ret i32 %6"-> "rInitmatrix  %14 = call i32 @Rand()";[lhead = cluster_BB1];
+"Mm  call void @Initrand()"-> "Initrand  store i64 74755, i64* @seed, align 8";[lhead = cluster_BB0];
+"Initrand  ret void"-> "Mm  call void @Initrand()";[lhead = cluster_BB0];
+"Mm  call void @rInitmatrix([2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rma, i32 0, i32 0))"-> "rInitmatrix  %2 = alloca [2 x float]*, align 8";[lhead = cluster_BB2];
+"rInitmatrix  ret void"-> "Mm  call void @rInitmatrix([2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rma, i32 0, i32 0))";[lhead = cluster_BB2];
+"Mm  call void @rInitmatrix([2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rmb, i32 0, i32 0))"-> "rInitmatrix  %2 = alloca [2 x float]*, align 8";[lhead = cluster_BB2];
+"rInitmatrix  ret void"-> "Mm  call void @rInitmatrix([2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rmb, i32 0, i32 0))";[lhead = cluster_BB2];
+"Mm  call void @rInnerproduct(float* %18, [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rma, i32 0, i32 0), [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rmb, i32 0, i32 0), i32 %19, i32 %20)"-> "rInnerproduct  %6 = alloca float*, align 8";[lhead = cluster_BB11];
+"rInnerproduct  ret void"-> "Mm  call void @rInnerproduct(float* %18, [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rma, i32 0, i32 0), [2 x float]* getelementptr inbounds ([2 x [2 x float]], [2 x [2 x float]]* @rmb, i32 0, i32 0), i32 %19, i32 %20)";[lhead = cluster_BB11];
+"main  call void @Mm(i32 %7)"-> "Mm  %2 = alloca i32, align 4";[lhead = cluster_BB16];
+"Mm  ret void"-> "main  call void @Mm(i32 %7)";[lhead = cluster_BB16];
