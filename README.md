@@ -1,4 +1,4 @@
-# Exploiting Heterogeneous Program Knowledge Graph for Register-related Instruction Vulnerability Prediction (VP-HPKG)
+# Efficient Instruction Vulnerability Prediction with Heterogeneous SDC Propagation Knowledge Graph (VP-HPKG)
 VP-HPKG explores the random propagation of instruction-stream errors by representing the source program as a multi-layer heterogeneous program knowledge graph, and accurately locates the instructions prone to errors.
 
 ## Overview
